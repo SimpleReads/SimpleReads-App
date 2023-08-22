@@ -1,18 +1,38 @@
 import tkinter as tk
 from tkinter import Menu, filedialog
+from tkinter import ttk
+from tkinter import font as tkfont
 
 class SentenceView:
     def __init__(self, root, controller):
         self.root = root
         
+        # Font settings
+        bold_font = tkfont.Font(family="Helvetica", size=12, weight="bold")
+        
         # Labels
-        self.original_label = tk.Label(root, text="Original Sentence:")
+        self.original_label = tk.Label(
+            root, 
+            text="Original Sentence:", 
+            bg="light blue", 
+            font=bold_font
+            )
         self.original_label.place(relx=0.1, rely=0.1, anchor=tk.W)
 
-        self.lexical_label = tk.Label(root, text="Lexical Simplifications:")
+        self.lexical_label = tk.Label(
+            root, 
+            text="Lexical Simplifications:", 
+            bg="light blue", 
+            font=bold_font
+            )
         self.lexical_label.place(relx=0.1, rely=0.4, anchor=tk.W)
 
-        self.syntactic_label = tk.Label(root, text="Syntactic Simplification:")
+        self.syntactic_label = tk.Label(
+            root, 
+            text="Syntactic Simplification:", 
+            bg="light blue", 
+            font=bold_font
+            )
         self.syntactic_label.place(relx=0.1, rely=0.7, anchor=tk.W)
         
         # Text Widgets for Sentences
@@ -36,16 +56,35 @@ class SentenceView:
         self.file_menu = Menu(self.menu)
         self.menu.add_cascade(label="File", menu=self.file_menu)
 
-    def update_sentence(self, original, lexical, syntactic):
-        # Update original_sentence
-        self.view.original_sentence.delete("1.0", tk.END)
-        self.view.original_sentence.insert(tk.END, original)
+        # Current Sentence
+        line_num_label = tk.Label(
+            root, 
+            text="Current Sentence:",
+            bg="light blue", 
+            font=bold_font
+            )
+        line_num_label.place(relx=0.0, rely=0.0, anchor=tk.NW)
 
-        # Update lexical_sentence
-        self.view.lexical_sentence.delete("1.0", tk.END)
-        self.view.lexical_sentence.insert(tk.END, lexical)
+        self.sentence_number = tk.Label(
+            root, 
+            text="1",
+            bg="light blue", 
+            font=bold_font
+            )
+        self.sentence_number.place(relx=0.125, rely=0.0, anchor=tk.NW)
 
-        # Update syntactic_sentence
-        self.view.syntactic_sentence.delete("1.0", tk.END)
-        self.view.syntactic_sentence.insert(tk.END, syntactic)
+        # Switching Sentence
+        self.switch_sentence_label = tk.Label(
+            root, 
+            text="Switch Sentence:",
+            bg="light blue", 
+            font=bold_font
+            )
+        self.switch_sentence_label.place(relx=0.0, rely=0.03, anchor=tk.NW)
 
+        # Text widget for sentence number
+        self.switch_sentence_text = tk.Text(
+            root, 
+            height=1, 
+            width=3)
+        self.switch_sentence_text.place(relx=0.125, rely=0.03, anchor=tk.NW)
