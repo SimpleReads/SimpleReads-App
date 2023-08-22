@@ -162,3 +162,6 @@ cython_debug/
 
 # SimpleReads Specific
 output/
+
+# Node modules
+node_modules/
