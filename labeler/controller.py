@@ -23,10 +23,18 @@ class SentenceController:
     def init(self):
         self.model.load_default()
         self.update_sentence()
+        self.update_sentence_number()
+
+    def switch_sentence(self):
+        sentence_number = int(self.view.switch_sentence_text.get("1.0", tk.END))
+        self.model.switch_sentence(sentence_number)
+        self.update_sentence()
+        self.update_sentence_number()
 
     def show_next_sentence(self):
         self.model.show_next_sentence()
         self.update_sentence()
+        self.update_sentence_number()
 
     def load_file(self):
         self.model.load_file()
@@ -45,6 +53,9 @@ class SentenceController:
         # Update syntactic_sentence
         self.view.syntactic_sentence.delete("1.0", tk.END)
         self.view.syntactic_sentence.insert(tk.END, syntactic)
+
+    def update_sentence_number(self):
+        self.view.sentence_number.config(text=str(self.model.index + 1))
 
     def on_right_click(self, event):
         widget = event.widget  # This will give you the widget that triggered the event
