@@ -1,7 +1,9 @@
+import difflib
 import os
 import random
 import nltk
 from tkinter import filedialog
+import difflib
 
 class SentenceModel:
     def __init__(self):
@@ -63,8 +65,7 @@ class SentenceModel:
             else:
                 print("The lengths of the files do not match!")
 
-    def next_sentence(self):
-        # write sentences to file
+    def show_next_sentence(self):
         self.modify_sentence(self.get_current_sentences())
         self.index += 1
         if self.index >= len(self.original_sentences):
