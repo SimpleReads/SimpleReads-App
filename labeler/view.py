@@ -60,3 +60,18 @@ class SentenceView:
         self.root.config(menu=self.menu)
         self.file_menu = Menu(self.menu)
         self.menu.add_cascade(label="File", menu=self.file_menu)
+
+    def highlight_diff(self, diff):
+        # Delete all tags from both widgets
+        self.original_sentence.tag_delete("highlight")
+        self.lexical_sentence.tag_delete("highlight")
+
+        # Configure the highlight tag for both sentences
+        self.original_sentence.tag_configure("highlight", background="yellow")
+        self.lexical_sentence.tag_configure("highlight", background="yellow")
+
+        # Add new tags to both sentences
+        for tag, start, end in diff:
+            self.original_sentence.tag_add(tag, start, end)
+            self.lexical_sentence.tag_add(tag, start, end)
+
