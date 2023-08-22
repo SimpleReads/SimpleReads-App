@@ -11,6 +11,8 @@ class SentenceModel:
         self.lexical_sentences = None
         self.syntactic_sentences = None
         self.index = 0
+        self.line_number = 1  # Counter to keep track of read sentences.
+        self.changed_sentences = {}  # Dictionary to track changes.
 
     def load_default(self):
         original_path = "../datasets/simpa-master/ss-original.txt"
@@ -65,39 +67,21 @@ class SentenceModel:
 
     def next_sentence(self):
         # write sentences to file
-        self.modify_sentence(self.get_current_sentences())
+        self.write_to_file(self.get_current_sentences())
         self.index += 1
         if self.index >= len(self.original_sentences):
             self.index = 0
 
-    def switch_sentence(self, sentence_number):
-        # Switch to the sentence number
-        self.index = sentence_number - 1
-
-    def write_to_file(self):
-        index = self.index  # Current index
-        
-        with open("output/original-output.txt", 'a', encoding='utf-8') as f:
-            f.write(self.original_sentences[index] + '\n')
-            
-        with open("output/lexical-output.txt", 'a', encoding='utf-8') as f:
-            f.write(self.lexical_sentences[index] + '\n')
-            
-        with open("output/syntactic-output.txt", 'a', encoding='utf-8') as f:
-            f.write(self.syntactic_sentences[index] + '\n')
-
-
-    def modify_sentence(self, sentences):
+    def write_to_file(self, sentences):
         original, lexical, syntactic = sentences
-        if original is not None:
-            self.original_sentences[self.index] = original
-        if lexical is not None:
-            self.lexical_sentences[self.index] = lexical
-        if syntactic is not None:
-            self.syntactic_sentences[self.index] = syntactic
-        
-        # Write all the sentences to the file
-        self.write_to_file()
+
+        with open("output/original-output.txt", 'a', encoding='utf-8') as f:
+            f.write(original + '\n')
+        with open("output/lexical-output.txt", 'a', encoding='utf-8') as f:
+            f.write(lexical + '\n')
+        with open("output/syntactic-output.txt", 'a', encoding='utf-8') as f:
+            f.write(syntactic + '\n')
+
 
     def get_current_sentences(self):
         original = self.original_sentences[self.index]

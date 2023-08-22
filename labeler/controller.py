@@ -14,25 +14,12 @@ class SentenceController:
         self.next_button = tk.Button(root, text="Next", command=self.next_sentence)
         self.next_button.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
 
-        # Button for switching to sentence
-        self.switch_sentence_button = tk.Button(root, text="Switch", command=self.switch_sentence)
-        self.switch_sentence_button.place(relx=0.2, rely=0.03, anchor=tk.NW)
-
-
         self.model.load_default()
         self.update_sentence()
-        self.update_sentence_number()
-
-    def switch_sentence(self):
-        sentence_number = int(self.view.switch_sentence_text.get("1.0", tk.END))
-        self.model.switch_sentence(sentence_number)
-        self.update_sentence()
-        self.update_sentence_number()
 
     def next_sentence(self):
         self.model.next_sentence()
         self.update_sentence()
-        self.update_sentence_number()
 
     def load_file(self):
         self.model.load_file()
@@ -51,9 +38,6 @@ class SentenceController:
         # Update syntactic_sentence
         self.view.syntactic_sentence.delete("1.0", tk.END)
         self.view.syntactic_sentence.insert(tk.END, syntactic)
-
-    def update_sentence_number(self):
-        self.view.sentence_number.config(text=str(self.model.index + 1))
 
     def on_right_click(self, event):
         widget = event.widget  # This will give you the widget that triggered the event
@@ -78,4 +62,3 @@ class SentenceController:
     def replace_word(self, widget, start_index, end_index, new_word):
         widget.delete(start_index, end_index)
         widget.insert(start_index, new_word)
-
