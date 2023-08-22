@@ -76,6 +76,10 @@ class SentenceModel:
         self.index = sentence_number - 1
 
     def write_to_file(self):
+        # Create 'output' folder if it doesn't exist
+        if not os.path.exists('output'):
+            os.makedirs('output')
+            
         index = self.index  # Current index
         
         with open("output/original-output.txt", 'a', encoding='utf-8') as f:
