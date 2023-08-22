@@ -35,15 +35,11 @@ class SentenceController:
         self.model.show_next_sentence()
         self.update_sentence()
         self.update_sentence_number()
-        self.highlight_diff()
 
     def load_file(self):
         self.model.load_file()
         
     def update_sentence(self):
-        # Show diff
-        get_diff = self.model.get_diff(self.model.get_current_sentences())
-        print(get_diff)
         original, lexical, syntactic = self.model.update_sentence()
 
         # Update original_sentence
@@ -84,10 +80,4 @@ class SentenceController:
     def replace_word(self, widget, start_index, end_index, new_word):
         widget.delete(start_index, end_index)
         widget.insert(start_index, new_word)
-
-    # Call self.model and self.view to add tags to the text widgets when
-    # the user clicks the "Next" button.
-    def highlight_diff(self):
-        diffs = self.model.get_diff(self.model.get_current_sentences())
-        self.view.highlight_diff(diffs)
 

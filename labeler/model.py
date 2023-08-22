@@ -65,44 +65,6 @@ class SentenceModel:
             else:
                 print("The lengths of the files do not match!")
 
-
-    def get_diff(self, sentences):
-        original, lexical, syntactic = sentences
-
-        if original is None or lexical is None:
-            return None
-
-        original_words = original.split()
-        lexical_words = lexical.split()
-
-        diff = list(difflib.ndiff(original_words, lexical_words))
-
-        highlight_diffs = []
-
-        original_line, original_col = 1, 0
-        lexical_line, lexical_col = 1, 0
-
-        for word in diff:
-            if word.startswith(' '):
-                # Word exists in both sentences; move both original and lexical indices
-                original_col += len(word[2:]) + 1
-                lexical_col += len(word[2:]) + 1
-            elif word.startswith('-'):
-                # Word exists only in the original sentence; move original index
-                start = f"{original_line}.{original_col}"
-                end = f"{original_line}.{original_col + len(word[2:])}"
-                original_col += len(word[2:]) + 1  # +1 for the space
-                highlight_diffs.append(("highlight_original", start, end))
-            elif word.startswith('+'):
-                # Word exists only in the lexical sentence; move lexical index
-                start = f"{lexical_line}.{lexical_col}"
-                end = f"{lexical_line}.{lexical_col + len(word[2:])}"
-                lexical_col += len(word[2:]) + 1  # +1 for the space
-                highlight_diffs.append(("highlight_lexical", start, end))
-
-        return highlight_diffs
-
-
     def show_next_sentence(self):
         self.modify_sentence(self.get_current_sentences())
         self.index += 1
