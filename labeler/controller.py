@@ -11,14 +11,16 @@ class SentenceController:
         self.view.file_menu.add_command(label="Load Files", command=self.load_file)
         
         # Move the creation of the "Next" button here.
-        self.next_button = tk.Button(root, text="Next", command=self.next_sentence)
+        self.next_button = tk.Button(root, text="Next", command=self.show_next_sentence)
         self.next_button.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
 
         # Button for switching to sentence
-        self.switch_sentence_button = tk.Button(root, text="Switch", command=self.switch_sentence)
-        self.switch_sentence_button.place(relx=0.2, rely=0.03, anchor=tk.NW)
+        self.switch_sentence_button = tk.Button(self.view.sentence_info_frame, text="Switch", command=self.switch_sentence)
+        self.switch_sentence_button.grid(row=1, column=2, padx=10, pady=10)
 
+        self.init()
 
+    def init(self):
         self.model.load_default()
         self.update_sentence()
         self.update_sentence_number()
@@ -29,15 +31,19 @@ class SentenceController:
         self.update_sentence()
         self.update_sentence_number()
 
-    def next_sentence(self):
-        self.model.next_sentence()
+    def show_next_sentence(self):
+        self.model.show_next_sentence()
         self.update_sentence()
         self.update_sentence_number()
+        self.highlight_diff()
 
     def load_file(self):
         self.model.load_file()
         
     def update_sentence(self):
+        # Show diff
+        get_diff = self.model.get_diff(self.model.get_current_sentences())
+        print(get_diff)
         original, lexical, syntactic = self.model.update_sentence()
 
         # Update original_sentence
@@ -78,4 +84,10 @@ class SentenceController:
     def replace_word(self, widget, start_index, end_index, new_word):
         widget.delete(start_index, end_index)
         widget.insert(start_index, new_word)
+
+    # Call self.model and self.view to add tags to the text widgets when
+    # the user clicks the "Next" button.
+    def highlight_diff(self):
+        diffs = self.model.get_diff(self.model.get_current_sentences())
+        self.view.highlight_diff(diffs)
 
