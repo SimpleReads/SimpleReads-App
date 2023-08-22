@@ -80,4 +80,3 @@ class SentenceController:
     def replace_word(self, widget, start_index, end_index, new_word):
         widget.delete(start_index, end_index)
         widget.insert(start_index, new_word)
-
