@@ -11,14 +11,21 @@ class SentenceController:
         self.view.file_menu.add_command(label="Load Files", command=self.load_file)
         
         # Move the creation of the "Next" button here.
-        self.next_button = tk.Button(root, text="Next", command=self.next_sentence)
+        self.next_button = tk.Button(root, text="Next", command=self.show_next_sentence)
         self.next_button.place(relx=0.5, rely=0.9, anchor=tk.CENTER)
 
+        # Button for switching to sentence
+        self.switch_sentence_button = tk.Button(self.view.sentence_info_frame, text="Switch", command=self.switch_sentence)
+        self.switch_sentence_button.grid(row=1, column=2, padx=10, pady=10)
+
+        self.init()
+
+    def init(self):
         self.model.load_default()
         self.update_sentence()
 
-    def next_sentence(self):
-        self.model.next_sentence()
+    def show_next_sentence(self):
+        self.model.show_next_sentence()
         self.update_sentence()
 
     def load_file(self):
