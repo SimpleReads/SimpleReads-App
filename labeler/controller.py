@@ -8,7 +8,7 @@ class SentenceController:
         self.model = SentenceModel()
         self.view = SentenceView(root, self)
         
-        self.view.file_menu.add_command(label="Load Files", command=self.load_csv)
+        self.view.file_menu.add_command(label="Load Files", command=self.load_file)
         
         # Move the creation of the "Next" button here.
         self.next_button = tk.Button(root, text="Next", command=self.next_sentence)
@@ -21,8 +21,8 @@ class SentenceController:
         self.model.next_sentence()
         self.update_sentence()
 
-    def load_csv(self):
-        self.model.load_csv()
+    def load_file(self):
+        self.model.load_file()
         
     def update_sentence(self):
         original, lexical, syntactic = self.model.update_sentence()

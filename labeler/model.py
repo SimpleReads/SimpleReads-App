@@ -1,6 +1,7 @@
 import os
 import random
 import nltk
+from tkinter import filedialog
 
 class SentenceModel:
     def __init__(self):
@@ -10,6 +11,8 @@ class SentenceModel:
         self.lexical_sentences = None
         self.syntactic_sentences = None
         self.index = 0
+        self.line_number = 1  # Counter to keep track of read sentences.
+        self.changed_sentences = {}  # Dictionary to track changes.
 
     def load_default(self):
         original_path = "../datasets/simpa-master/ss-original.txt"
@@ -29,7 +32,7 @@ class SentenceModel:
         else:
             print("The lengths of the files do not match!")
 
-    def load_csv(self):
+    def load_file(self):
         current_directory = os.getcwd()  # Get current directory
         parent_directory = os.path.dirname(current_directory)  # Get parent directory
         original_path = filedialog.askopenfilename(
@@ -63,9 +66,22 @@ class SentenceModel:
                 print("The lengths of the files do not match!")
 
     def next_sentence(self):
+        # write sentences to file
+        self.write_to_file(self.get_current_sentences())
         self.index += 1
         if self.index >= len(self.original_sentences):
             self.index = 0
+
+    def write_to_file(self, sentences):
+        original, lexical, syntactic = sentences
+
+        with open("output/original-output.txt", 'a', encoding='utf-8') as f:
+            f.write(original + '\n')
+        with open("output/lexical-output.txt", 'a', encoding='utf-8') as f:
+            f.write(lexical + '\n')
+        with open("output/syntactic-output.txt", 'a', encoding='utf-8') as f:
+            f.write(syntactic + '\n')
+
 
     def get_current_sentences(self):
         original = self.original_sentences[self.index]
