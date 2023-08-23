@@ -1,8 +1,11 @@
 # SimpleReads
 
-## Installing Dependencies
+SimpleReads aims to develop a Large Learning Model (LLM) with an intuitive interface designed to make complex research papers more accessible for individuals with various communication impairments, including aphasia. Leveraging advanced NLP techniques and inclusive design, the system allows users to upload documents in PDF or DOCX formats and receive translations into more easily digestible language and visuals, based on current research on communication impairments.
 
-CD into the directory (e.g. labeler or model) and run `pip install -r requirements.txt` to install the dependencies.
+## Cloning Remote Branches
+
+- ```git fetch origin```
+- ```git checkout -b new-branch origin/new-branch``` e.g. git checkout -b staging origin/staging
 
 ### Directory: labeler
 
@@ -25,3 +28,4 @@ Directory containing the code for the web app.
 While inside the app directory:
 - ```npm install``` to install dependencies
 - ```docker-compose up --build``` to run the app
+
