@@ -27,5 +27,5 @@ Directory containing the code for the web app.
 
 While inside the app directory:
 - ```npm install``` to install dependencies
-- ```docker-compose up --build``` to run the app
+- ```npm run dev``` to run the app
 
