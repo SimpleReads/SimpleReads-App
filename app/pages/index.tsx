@@ -6,7 +6,7 @@ const Home = () => {
   useEffect(() => {
     fetch('/api/yourData')
       .then((res) => res.json())
-      .then((data) => setText(data.your_field_name)) // Replace with the actual field name
+      .then((data) => setText(data.your_field_name))
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
 

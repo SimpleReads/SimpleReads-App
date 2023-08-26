@@ -4,7 +4,7 @@ type Validate = { valid: boolean; error?: string };
 
 export class ResearchPapers {
   private client: MongoClient;
-  private collection: string = "papers"; // Changed to 'papers' to match your MongoDB collection name
+  private collection: string = "papers";
 
   constructor(mongoClient: MongoClient) {
     this.client = mongoClient;
@@ -23,7 +23,7 @@ export class ResearchPapers {
         error: "Missing Authors or Authors is not an array",
       };
     }
-    // Add any more validation logic here
+
     return {
       valid: true,
     };
@@ -34,7 +34,7 @@ export class ResearchPapers {
       .db("researchPapers")
       .collection(this.collection)
       .find({ status })
-      .sort({ published_at: -1 }) // changed from 'created_at' to 'published_at'
+      .sort({ published_at: -1 })
       .toArray();
   }
 
