@@ -11,7 +11,3 @@ export type ApiBufferRes = {
   data?: Buffer;
   error?: string;
 };
-
-export type PropertyPost = {
-  id: string;
-};

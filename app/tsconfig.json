@@ -19,7 +19,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "paths": {
-      "@/*": ["./app/*"]
+      "@/*": ["./*"]
     }
   },
   "include": [

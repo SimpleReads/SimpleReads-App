@@ -12,37 +12,64 @@ const main = async () => {
     const db = client.db('researchPapers');
     const papersCollection = db.collection('papers');
 
-    // Create a paper object with sections
-    const paperData = {
-        title: "Sample Research Paper",
-        authors: ["Alice", "Bob"],
-        abstract: "This is an example abstract...",
-        sections: [
-            {
-                name: "Introduction",
-                text: "This is the introduction..."
-            },
-            {
-                name: "Methodology",
-                text: "This describes the methodology..."
-            },
-            {
-                name: "Results",
-                text: "These are the results..."
-            },
-            {
-                name: "Conclusion",
-                text: "This is the conclusion..."
-            }
-        ],
-        keywords: ["example", "sample"],
-        published_at: new Date("2021-01-01T00:00:00Z")
-    };
+    // Create two paper objects with sections
+    const papersData = [
+        {
+            title: "Sample Research Paper 1",
+            authors: ["Alice", "Bob"],
+            abstract: "This is an example abstract for paper 1...",
+            sections: [
+                {
+                    name: "Introduction",
+                    text: "This is the introduction for paper 1..."
+                },
+                {
+                    name: "Methodology",
+                    text: "This describes the methodology for paper 1..."
+                },
+                {
+                    name: "Results",
+                    text: "These are the results for paper 1..."
+                },
+                {
+                    name: "Conclusion",
+                    text: "This is the conclusion for paper 1..."
+                }
+            ],
+            keywords: ["example", "sample"],
+            published_at: new Date("2021-01-01T00:00:00Z")
+        },
+        {
+            title: "Sample Research Paper 2",
+            authors: ["Alice", "Bob"],
+            abstract: "This is an example abstract for paper 2...",
+            sections: [
+                {
+                    name: "Introduction",
+                    text: "This is the introduction for paper 2..."
+                },
+                {
+                    name: "Methodology",
+                    text: "This describes the methodology for paper 2..."
+                },
+                {
+                    name: "Results",
+                    text: "These are the results for paper 2..."
+                },
+                {
+                    name: "Conclusion",
+                    text: "This is the conclusion for paper 2..."
+                }
+            ],
+            keywords: ["example", "sample"],
+            published_at: new Date("2021-01-02T00:00:00Z")
+        }
+    ];
 
-    // Insert the paper object into the collection
-    await papersCollection.insertOne(paperData);
+    // Insert the paper objects into the collection
+    await papersCollection.insertMany(papersData);
 
-    console.log("Paper with sections inserted successfully!");
+    console.log("Papers with sections inserted successfully!");
 
     // Close the connection
     await client.close();
