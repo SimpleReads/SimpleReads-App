@@ -1,6 +1,12 @@
-version: "3"
+# Use root/example as user/password credentials
+version: '3.0'
+
 services:
-  app:
-    build: .
+  mongo:
+    image: mongo
+    restart: always
     ports:
-      - "3000:3000"
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
