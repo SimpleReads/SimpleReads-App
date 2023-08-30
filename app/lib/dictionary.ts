@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-class Dictionary {
+export default class Dictionary {
     currentWord: string;
     currentInfo: any;
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import DicButton from '@/components/dicButton';
 
 const Home = () => {
   const [text, setText] = useState('');
@@ -14,6 +15,7 @@ const Home = () => {
     <div>
       Hello, Next.js!
       <div>{text}</div>
+      <DicButton/>
     </div>
   );
 };
