@@ -33,7 +33,7 @@ export default class Dictionary {
     async getDefs(numOfUsages: number, numOfDefs: number) {
         let info = await this.currentInfo;
         info = info[0]["meanings"];
-        let str = "";
+        let str = `${this.currentWord}\n`;
         let usage = 0;
         let def = 0;
         while ((usage < numOfUsages) && (usage < info.length)) {
