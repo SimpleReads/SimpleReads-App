@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div>
-      Hello, Next.js!
+      Hello Boss, Next.js!
       <div>{text}</div>
     </div>
   );
