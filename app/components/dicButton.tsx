@@ -1,9 +1,21 @@
 import * as React from "react";
 import getDefs from "../lib/getDefs"
+import { deflateSync } from "zlib";
 let NUM_OF_DEFS = 2
 let NUM_OF_USAGES = 2
 
-export default class DicButton extends React.Component <{}> {
+export default class DicButton extends React.Component<{}, {defs: string}> {
+
+    constructor(props: any){
+        super(props);
+        this.state = {
+            defs: "Empty"
+        }
+    }
+    
+    updateText = (async(currentWord) => {
+        this.setState({defs: await getDefs(NUM_OF_USAGES, NUM_OF_DEFS, currentWord)})
+    });
 
     onSubmit = e => {
         e.preventDefault();
@@ -11,9 +23,8 @@ export default class DicButton extends React.Component <{}> {
         const formData = new FormData(form);
         const formJson = Object.fromEntries(formData.entries());
         let currentWord = formJson["search bar"] as string
-        let str = getDefs(NUM_OF_USAGES, NUM_OF_DEFS, currentWord);
-        console.log(str);
-        console.log(currentWord);
+        this.updateText(currentWord);
+        console.log(this.state.defs);
     }
 
 
@@ -26,7 +37,8 @@ export default class DicButton extends React.Component <{}> {
                         Search for: <input type="text" name="search bar"/>
                     </label>
                     <button type = "submit"></button>
-                </form> 
+                </form>
+                {this.state.defs.split('\n').map(e => <p>{e}</p>)}
             </div>
         )
     }
