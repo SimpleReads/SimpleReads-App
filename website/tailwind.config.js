@@ -19,16 +19,16 @@ module.exports = {
           800: '#25282C',
           900: '#151719',
         },
-        purple: {
-          100: '#F4F4FF',
-          200: '#E2E1FF',
-          300: '#CBCCFF',
-          400: '#ABABFF',
-          500: '#8D8DFF',
-          600: '#5D5DFF',
-          700: '#4B4ACF',
-          800: '#38379C',
-          900: '#262668',
+        purple: {         // original colours;
+          100: '#F0FFFF', // #F4F4FF
+          200: '#BFFFFF', // #E2E1FF
+          300: '#80FFFF', // #CBCCFF
+          400: '#40FFFF', // #ABABFF
+          500: '#00FFFF', // #8D8DFF
+          600: '#00DCDC', // #5D5DFF
+          700: '#00B3B3', // #4B4ACF
+          800: '#008585', // #38379C
+          900: '#005A5A', // #262668
         },
       },
       spacing: {
