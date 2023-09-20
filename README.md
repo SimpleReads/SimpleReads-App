@@ -36,6 +36,10 @@ While inside the app directory:
 
 ## API Endpoints
 
+### Flask
+
+Our application uses Flask as the web framework, and we provide API endpoints for fetching and manipulating research papers. Endpoint routes are accessible on localhost:3001.
+
 ### MongoDB
 
 Our application uses MongoDB as the database backend, and we provide API endpoints for fetching and manipulating research papers.

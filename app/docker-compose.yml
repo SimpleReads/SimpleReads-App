@@ -10,3 +10,16 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+  flask-app:
+    build: 
+      context: ./flask_app  # Directory containing the Flask Dockerfile
+      dockerfile: Dockerfile  # This is optional if your file is named Dockerfile
+    ports:
+      - 3001:5000
+    depends_on:
+      - mongo
+
+
+
+
+
