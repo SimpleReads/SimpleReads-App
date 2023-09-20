@@ -6,3 +6,27 @@ TO RUN THE WEBSITE, TYPE IN THE TERMINAL:
 >> npm run dev
 
 THIS WILL START THE WEBSITE LIVE ON YOUR LOCALHOST, AND ANY CHANGES MADE WILL BE REFLECTED
+
+
+COLOURS:
+
+Colours are defined in tailwind.config.js. 
+
+Syntactically, throughout the codebase colours are referred to as "[gray OR purple]-[multiple of 100]"; 
+these refer back to the hex codes as they are defined in tailwind.config.js. 'Gray' is grayscale,
+'purple' is anything in cyan - there is no way in hell I can be fucked going through the entire front-end
+codebase correcting that.
+
+COLOUR CONTRAST GUIDELINES:
+
+According to the WCAG AAA standards for web accessability, text must have a contrast ratio of at least
+7:1 with its background. Additionally, for the sake of Aphasia patients we are specifically using 
+dark text on light backgrounds. As such, with the current colour palette, the following are valid
+colour combinations for text:
+
+TEXT COLOUR    |    GRAY BG          |    CYAN BG
+---------------|---------------------|-------------------
+gray-900       |    gray-[<= 400]    |    purple-[<= 600]
+gray-800       |    gray-[<= 300]    |    purple-[<= 600]
+gray-700       |    gray-[<= 200]    |    purple-[<= 600]
+purple-900     |    gray-100         |    purple-[<= 200]

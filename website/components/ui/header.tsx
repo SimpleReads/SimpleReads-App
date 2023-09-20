@@ -23,13 +23,13 @@ export default function Header() {
               <li>
                 <Link
                   href="/signin"
-                  className="font-medium text-purple-600 hover:text-gray-200 px-4 py-3 flex items-center transition duration-150 ease-in-out"
+                  className="font-medium text-gray-900 hover:text-purple-500 px-4 py-3 flex items-center transition duration-150 ease-in-out"
                 >
                   Sign in
                 </Link>
               </li>
               <li>
-                <Link href="/signup" className="btn-sm text-white bg-purple-600 hover:bg-purple-700 ml-3">
+                <Link href="/signup" className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-500 ml-3">
                   Sign up
                 </Link>
               </li>
