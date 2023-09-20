@@ -93,7 +93,8 @@ export default function Footer() {
           {/* Bottom area */}
           <div className="md:flex md:items-center md:justify-between">
 
-            {/* Social links */}
+            {/**
+            {/* Social links
             <ul className="flex mb-4 md:order-1 md:ml-4 md:mb-0">
               <li>
                 <Link href="/" className="flex justify-center items-center text-purple-600 bg-gray-800 hover:text-gray-100 hover:bg-purple-600 rounded-full transition duration-150 ease-in-out" aria-label="Twitter">
@@ -133,9 +134,9 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-
+            */}
             {/* Copyrights note */}
-            <div className="text-gray-400 text-sm mr-4">&copy; SimpleReads.com. All rights reserved.</div>
+            <div className="text-gray-400 text-sm mr-4">&copy; SimpleReads.com. All rights (not) reserved.</div>
 
           </div>
 
