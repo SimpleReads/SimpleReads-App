@@ -1,9 +1,7 @@
 export default function getFlask(){
 
     async function getInfo(){
-        const response = await fetch("http://localhost:3001/dummy", {
-            method: 'GET'
-        })
+        const response = await fetch("http://localhost:3001/test")
         ;
 
         if (!response.ok) {

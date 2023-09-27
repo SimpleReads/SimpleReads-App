@@ -1,7 +1,5 @@
 # Flask Hello World API route on port
-
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 
 app = Flask(__name__)
 
@@ -9,18 +7,12 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/test', methods = ['GET', 'POST'])
+@app.route('/test')
 def test():
-    if request.method == 'GET':
-        message = {"Boobs and boobs and boobs"}
-        return jsonify(message)
-    
-    if request.method == 'POST':
-        print(request.get_json())
-        return 'Success', 200
-
-    else:
-        return "poop"
+    message = "PYTHON"
+    response = jsonify({'message': message})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

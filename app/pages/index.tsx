@@ -19,7 +19,7 @@ const Home = () => {
       <div>{text}</div>
         <DicButton/>
       <div>
-        <Link href={"/about"}>GO TO ADMIN PAGE</Link>
+        <Link href={"/admin"}>GO TO ADMIN PAGE</Link>
       </div>
     </div>
   );
