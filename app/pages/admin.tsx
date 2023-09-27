@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import DicButton from '@/components/dicButton';
 import Link from 'next/link';
+import AdminStausBar from '@/components/adminStatus';
 
-const Home = () => {
+const Admin = () => {
   const [text, setText] = useState('');
 
   useEffect(() => {
@@ -13,15 +14,16 @@ const Home = () => {
   }, []);
 
   return (
+    <>
     <div>
-      Hello Boss, Next.js!
-      <div>{text}</div>
-      <DicButton/>
-      <div>
-        <Link href={"/about"}>GO TO ADMIN PAGE</Link>
-      </div>
+      DID IT PUSSY
+      <AdminStausBar/>
     </div>
+    <div>
+        <Link href={"/"}>GO TO TEST PAGE</Link>
+    </div>
+    </>
   );
 };
 
-export default Home;
+export default Admin;
