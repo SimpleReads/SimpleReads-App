@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import DicButton from '@/components/dicButton';
 import Link from 'next/link';
 
+
 const Home = () => {
   const [text, setText] = useState('');
 
@@ -16,7 +17,7 @@ const Home = () => {
     <div>
       Hello Boss, Next.js!
       <div>{text}</div>
-      <DicButton/>
+        <DicButton/>
       <div>
         <Link href={"/about"}>GO TO ADMIN PAGE</Link>
       </div>

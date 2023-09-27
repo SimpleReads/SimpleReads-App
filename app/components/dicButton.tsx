@@ -1,20 +1,23 @@
 import * as React from "react";
 import getDefs from "../lib/getDefs"
-import { deflateSync } from "zlib";
+import getInfo from "../lib/flaskGrab"
 let NUM_OF_DEFS = 2
 let NUM_OF_USAGES = 2
 
-export default class DicButton extends React.Component<{}, {defs: string}> {
+export default class DicButton extends React.Component<{}, {defs: string, flask: string}> {
 
     constructor(props: any){
         super(props);
         this.state = {
-            defs: "Empty"
+            defs: "Empty",
+            flask: "WAITING"
         }
     }
     
     updateText = (async(currentWord) => {
         this.setState({defs: await getDefs(NUM_OF_USAGES, NUM_OF_DEFS, currentWord)})
+        this.setState({flask: await getInfo()})
+
     });
 
     onSubmit = e => {
@@ -39,6 +42,7 @@ export default class DicButton extends React.Component<{}, {defs: string}> {
                     <button type = "submit"></button>
                 </form>
                 {this.state.defs.split('\n').map(e => <p>{e}</p>)}
+                {this.state.flask}
             </div>
         )
     }
