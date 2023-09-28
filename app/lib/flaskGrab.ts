@@ -1,7 +1,7 @@
-export default function getFlask(){
+export default function getFlask(path){
 
-    async function getInfo(){
-        const response = await fetch("http://localhost:3001/test")
+    async function getInfo(path){
+        const response = await fetch(`http://localhost:3001/${path}`)
         ;
 
         if (!response.ok) {
@@ -14,5 +14,5 @@ export default function getFlask(){
         return result.message;
     }
 
-    return getInfo();
+    return getInfo(path);
 }

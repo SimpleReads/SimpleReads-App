@@ -5,11 +5,14 @@ app = Flask(__name__)
 
 @app.route('/hello_world')
 def hello_world():
-    return 'Hello, World!'
+    message = "HELLO"
+    response = jsonify({'message': message})
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/test')
 def test():
-    message = "PYTHON"
+    message = "TEST"
     response = jsonify({'message': message})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response

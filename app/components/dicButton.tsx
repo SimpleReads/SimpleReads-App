@@ -16,7 +16,7 @@ export default class DicButton extends React.Component<{}, {defs: string, flask:
     
     updateText = (async(currentWord) => {
         this.setState({defs: await getDefs(NUM_OF_USAGES, NUM_OF_DEFS, currentWord)})
-        this.setState({flask: await getInfo()})
+        this.setState({flask: await getInfo("test")})
 
     });
 
