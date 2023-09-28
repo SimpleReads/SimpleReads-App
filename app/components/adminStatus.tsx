@@ -1,6 +1,8 @@
 import * as React from "react";
 import getDefs from "../lib/getDefs"
 import { deflateSync } from "zlib";
+import getFlask from "@/lib/flaskGrab";
+import { stat } from "fs";
 let NUM_OF_DEFS = 2
 let NUM_OF_USAGES = 2
 
@@ -14,23 +16,24 @@ export default class AdminStausBar extends React.Component<{}, {status: string}>
     }
     
     updateText = (async(status) => {
-        this.setState({status: status})
+        let msg = getFlask(status)
+        this.setState({status: await msg})
     });
 
-    setActive = () => {
-        this.updateText("Shitting")
+    setOn = () => {
+        this.updateText("hello_world")
     }
 
-    setDisabled = () => {
-        this.updateText("Farting")
+    setOff = () => {
+        this.updateText("test")
     }
 
     render(): React.ReactNode {
         return(
             <>
             <div>
-                <button onClick={this.setActive}>SHIT</button>
-                <button onClick={this.setDisabled}>FART</button>
+                <button onClick={this.setOn}>SHIT</button>
+                <button onClick={this.setOff}>FART</button>
             </div>
             <div>
                 <h3>{this.state.status}</h3>
