@@ -1,10 +1,5 @@
 import * as React from "react";
-import getDefs from "../lib/getDefs"
-import { deflateSync } from "zlib";
 import getFlask from "@/lib/flaskGrab";
-import { stat } from "fs";
-let NUM_OF_DEFS = 2
-let NUM_OF_USAGES = 2
 
 export default class AdminStausBar extends React.Component<{}, {status: string}> {
 
