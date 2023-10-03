@@ -2,6 +2,8 @@ export const metadata = {
     title: 'Upload - SimpleReads',
     description: 'Upload a PDF to be Simplified',
   }
+
+  import FileDrop from '@/components/fileDrop'
   
   import Link from 'next/link'
 
@@ -15,6 +17,7 @@ export const metadata = {
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
               <h1 className="h1">Upload Page where PDF will be displayed</h1>
             </div>
+            <FileDrop/>
           </div>
         </div>
       </section>
