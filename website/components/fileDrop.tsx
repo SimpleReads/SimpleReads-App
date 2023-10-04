@@ -57,7 +57,15 @@ export default function FileDrop() {
         backgroundColor: isOver ? 'lightgray' : 'white',
       }}
     >
-      Drag and drop some files here
+      {files.length > 0 ? (
+        <ul>
+          {files.map((file, index) => (
+            <li key={index}>{file.name}</li>
+          ))}
+        </ul>
+      ) : (
+        'Drag and drop some files here'
+      )}
     </div>
   );
 }
