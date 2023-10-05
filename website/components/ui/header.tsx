@@ -30,6 +30,11 @@ export default function Header() {
               </li>
               <li>
                 <Link href="/signup" className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-500 ml-3">
+                  Pop UP
+                </Link>
+              </li>
+              <li>
+                <Link href="/signup" className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-500 ml-3">
                   Sign up
                 </Link>
               </li>
