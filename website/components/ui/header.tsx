@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
+import PopOutTextBox from '../popOutTextBox'
 
 export default function Header() {
   return (
@@ -29,9 +30,7 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link href="/signup" className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-500 ml-3">
-                  Pop UP
-                </Link>
+                <PopOutTextBox />
               </li>
               <li>
                 <Link href="/signup" className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-500 ml-3">
