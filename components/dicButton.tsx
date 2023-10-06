@@ -1,6 +1,6 @@
 import * as React from "react";
-import getDefs from "../lib/getDefs"
-import getInfo from "../lib/flaskGrab"
+import getDefs from "../app/lib/getDefs"
+import getInfo from "../app/lib/flaskGrab"
 let NUM_OF_DEFS = 2
 let NUM_OF_USAGES = 2
 

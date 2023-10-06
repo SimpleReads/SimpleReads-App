@@ -1,9 +1,12 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import DicButton from '@/components/dicButton';
 import Link from 'next/link';
+import AdminStausBar from '@/components/adminStatus';
 
 
-const Home = () => {
+const Admin = () => {
   const [text, setText] = useState('');
 
   useEffect(() => {
@@ -14,15 +17,12 @@ const Home = () => {
   }, []);
 
   return (
+    <>
     <div>
-      Hello Boss, Next.js!
-      <div>{text}</div>
-        <DicButton/>
-      <div>
-        <Link href={"/admin"}>GO TO ADMIN PAGE</Link>
-      </div>
+      <AdminStausBar/>
     </div>
+    </>
   );
 };
 
-export default Home;
+export default Admin;
