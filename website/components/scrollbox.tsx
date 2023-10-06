@@ -98,24 +98,28 @@ export default class scrollbox extends React.Component<{}, {active: string}> {
   }
 
   increaseFontSize = () => {
-    var box = document.getElementById('scrollboxtext')
-    var fontsize = parseFloat(window.getComputedStyle(box, null).getPropertyValue('font-size'))
-    if (fontsize < 79) {
-      box.style.fontSize = (fontsize + 2) + 'px'
+    var box = document.getElementsByClassName('scrollboxtext')
+    for (const b of box) {
+	    var fontsize = parseFloat(window.getComputedStyle(b, null).getPropertyValue('font-size'))
+	    if (fontsize < 79) {
+	      b.style.fontSize = (fontsize + 2) + 'px'
+	    }
     }
   }
 
   decreaseFontSize = () => {
-    var box = document.getElementById('scrollboxtext')
-    var fontsize = parseFloat(window.getComputedStyle(box, null).getPropertyValue('font-size'))
-    if (fontsize > 17) {
-      box.style.fontSize = (parseFloat(fontsize) - 2) + 'px'
-    }
+    var box = document.getElementsByClassName('scrollboxtext')
+    for (const b of box) {
+    	var fontsize = parseFloat(window.getComputedStyle(b, null).getPropertyValue('font-size'))
+	    if (fontsize > 17) {
+	    	b.style.fontSize = (parseFloat(fontsize) - 2) + 'px'
+	    }
+	}
   }
 
   scrollUp = () => {
     var box = document.getElementById('scrollbox')
-    var textelement = document.getElementById('scrollboxtext')
+    var textelement = document.getElementsByClassName('scrollboxtext')[0]
     var lineheight = parseFloat(window.getComputedStyle(textelement, null).lineHeight)
     var addheight = Math.floor(lineheight/10)
     var excess = lineheight % 10
@@ -127,7 +131,7 @@ export default class scrollbox extends React.Component<{}, {active: string}> {
 
   scrollDown = () => {
     var box = document.getElementById('scrollbox')
-    var textelement = document.getElementById('scrollboxtext')
+    var textelement = document.getElementsByClassName('scrollboxtext')[0]
     var lineheight = parseFloat(window.getComputedStyle(textelement, null).lineHeight)
     var addheight = Math.floor(lineheight/10)
     var excess = lineheight % 10
