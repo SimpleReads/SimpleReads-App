@@ -64,18 +64,58 @@ def deploy_model(sess, role):
         container_startup_health_check_timeout=health_check_timeout,
     )
 
+
+def construct_simplification_instruction(text):
+    """
+    Constructs a simplification instruction based on the provided text.
+    """
+    return f"Please syntactically simplify this sentence: {text}"
+
+def get_simplified_text(text, model):
+    """
+    Sends a simplification request to the model and returns the simplified text.
+    """
+    instruction = construct_simplification_instruction(text)
+    payload = {
+        "inputs": instruction,
+        "parameters": {
+            "do_sample": True,
+            "top_p": 0.9,
+            "temperature": 0.8,
+            "max_new_tokens": 1024,
+            "repetition_penalty": 1.03,
+            "stop": []
+        }
+    }
+
+    # send request to endpoint
+    response = model.predict(payload)
+    output = str(response[0])
+    return output
+
+# # example function that does not inference
+# def get_simplified_text(text, model):
+#     return text
+
+
 @app.route("/start")
 def start():
     global llm
-    message = "START"
-    env_vars = load_env_variables()
-    boto_session = create_boto_session(env_vars)
-    role = get_sagemaker_role_arn(env_vars)
-    sess = get_sagemaker_session(boto_session)
-    llm = deploy_model(sess, role)
-    response = jsonify({"message": message})
+    try:
+        message = "START"
+        env_vars = load_env_variables()
+        boto_session = create_boto_session(env_vars)
+        role = get_sagemaker_role_arn(env_vars)
+        sess = get_sagemaker_session(boto_session)
+        llm = deploy_model(sess, role)
+        response = jsonify({"message": message})
+    except Exception as e:
+        response = jsonify({"message": f"Error: {str(e)}"})
+        response.status_code = 500  # Indicates a server error
+
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
 
 @app.route("/stop")
 def stop():
@@ -84,16 +124,20 @@ def stop():
     if llm:
         llm.delete_model()
         llm.delete_endpoint()
+        print("Model and endpoint deleted successfully")
     response = jsonify({"message": message})
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
-@app.route("/simplifyText", methods=["POST"])
+
+@app.route("/simplify_text", methods=["POST"])
 def simplify():
     text1 = request.form["text1"]
-    textEtc = request.form["textEtc"]
-    msg = f'Text 1 was "{text1}" and the other box was "{textEtc}\''
-    response = jsonify({"message": msg})
+
+    # Get the simplified text from the model
+    simplified_text = get_simplified_text(text1, llm)
+
+    response = jsonify({"message": simplified_text})
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Methods", "GET, POST")
     return response
