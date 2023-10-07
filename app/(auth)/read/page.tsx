@@ -31,7 +31,7 @@ export default function Home() {
         <div className = "row-span-4 col-span-4">
           <div className="pt-32 pb-12 md:pt-40 md:pb-20">
             <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              <Scrollbox />
+              <Scrollbox/>
             </div>
           </div>
         </div>
