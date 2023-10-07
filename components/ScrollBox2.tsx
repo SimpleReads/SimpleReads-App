@@ -1,87 +1,71 @@
 'use client'
 import * as React from 'react'
-import ReactDOM from 'react-dom'
-export default class Scrollbox extends React.Component<{}, {sections: string[], text}> {
 
-    static divstyle = {
+export default function ScrollBox({parentToChild, childToParent}) {
+
+    let rawText = parentToChild
+    let i = formatText(rawText)
+    let sections = i[0]
+    let text = i[1]
+    
+    childToParent(sections)
+
+    console.log(sections)
+    console.log(text)
+
+    const divstyle = {
         overflow: 'auto',
         height: 'min(90vh - 200px, 600px)'
     };
-    static btnstyle = {
+    const btnstyle = {
         margin: '10px 5px 10px 5px',
         fontSize: '32px',
         fontWeight: '900'
     };
-    static textstyle = {
+    const textstyle = {
         fontSize: '28px',
-        scrollBehavior: 'smooth'
+        scrollBehavior: 'smooth',
+        textAlign: 'left'
     };
-    static btncontainer = {
+    const headingStyle = {
+        fontSize: '50px',
+        scrollBehavior: 'smooth',
+        textAlign: 'left'
+    };
+    const btncontainer = {
         marginLeft: 'auto',
         marginRight: '0'
     };
-
-  constructor(props:any){
-    super(props)
-
-
-    this.state = {
-        sections: ["Abstract", "Introduction", "Methods", "Results", "Discussion"],
-        text: {}
-    }
-
+    
     // Dictionary state
     // Big text (to be replaced with server query)
     //this.text = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat."
     // Initialise empty text
-    for (const section of this.state.sections) {
-      this.state.text[section] = null
-    }
-    // Fill out with hard coded
-    var abstract = "n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat n voluptate velit esse cillum dolore eu fugiat"
-    
-    var introduction = "fugiat nulla pariatur. Excepteur sint  fugiat nulla pariatur. Excepteur sint fugiat nulla pariatur. Excepteur sint  fugiat nulla pariatur. Excepteur sint fugiat nulla pariatur. Excepteur sint  fugiat nulla pariatur. Excepteur sint fugiat nulla pariatur. Excepteur sint  fugiat nulla pariatur. Excepteur sint fugiat nulla pariatur. Excepteur sint  fugiat nulla pariatur. Excepteur sint fugiat nulla pariatur. Excepteur sint  fugiat nulla pariatur. Excepteur sint fugiat nulla pariatur. Excepteur sint  fugiat nulla pariatur. Excepteur sint"
-   
-    var methods = "nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat nulla pariatur. Excepteur sint occaecat cupidatat"
-    
-    var results = "velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu velit esse cillum dolore eu"
-    
-    var discussion = "Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in Duis aute irure dolor in"
-    this.state.text['Abstract'] = abstract
-    this.state.text['Introduction'] = introduction
-    this.state.text['Methods'] = methods
-    this.state.text['Results'] = results
-    this.state.text['Discussion'] = discussion
     // Styles
-  }
   // Functions
-  searchWord = (word) => {
+  const searchWord = (word) => {
     throw new Error('pressed ' + word)
   }
-/*
-  renderText = () => {return(
-  <p className="text-lg text-gray-400 text-center" style={this.textstyle} id="scrollboxtext">
-    {this.text.split(/( )/).map(word => <span onClick={() => {this.searchWord(word)}}>{word}</span>)}
-  </p>
-    )
-  }
-  */
-  //className="text-lg text-gray-400 text-center" 
-  renderText = () => {
+
+  const renderText = () => {
     return(
       <>
-        {this.state.sections.map((section, index) => (
+        {sections.map((section, index) => (
           <div>
-            {<p style={Scrollbox.textstyle} className="scrollboxtext" id={section}>
-              {this.state.text[section].split(/( )/).map(word => <span onClick={() => {this.searchWord(word)}}>{word}</span>)}
-            </p>}
+            <h1 style={headingStyle} className="scrollboxtext" id={section}>
+              <span onClick={() => {searchWord(section)}}>{section}</span>
+            </h1>
+            <p style={textstyle} className="scrollboxtext" id={section}>
+              {text[index].split(/( )/).map(word => <span onClick={() => {searchWord(word)}}>{word}</span>)}
+            </p>
+            <br></br>
           </div>
         ))}
       </>
     )
   }
 
-  increaseFontSize = () => {
+  const increaseFontSize = () => {
     var box = document.getElementsByClassName('scrollboxtext')
     for (const b of box) {
 	    var fontsize = parseFloat(window.getComputedStyle(b, null).getPropertyValue('font-size'))
@@ -91,7 +75,7 @@ export default class Scrollbox extends React.Component<{}, {sections: string[], 
     }
   }
 
-  decreaseFontSize = () => {
+  const decreaseFontSize = () => {
 
     Array.from(document.getElementsByClassName("scrollboxtext")).forEach(function(item) {
         var fontsize = parseFloat(window.getComputedStyle(item, null).getPropertyValue('font-size'))
@@ -101,7 +85,7 @@ export default class Scrollbox extends React.Component<{}, {sections: string[], 
     });
   }
 
-  scrollUp = () => {
+  const scrollUp = () => {
     var box = document.getElementById('scrollbox')
     var textelement = document.getElementsByClassName('scrollboxtext')[0]
     var lineheight = parseFloat(window.getComputedStyle(textelement, null).lineHeight)
@@ -113,7 +97,7 @@ export default class Scrollbox extends React.Component<{}, {sections: string[], 
     box.scrollTop -= excess
   }
 
-  scrollDown = () => {
+  const scrollDown = () => {
     var box = document.getElementById('scrollbox')
     var textelement = document.getElementsByClassName('scrollboxtext')[0]
     var lineheight = parseFloat(window.getComputedStyle(textelement, null).lineHeight)
@@ -124,11 +108,13 @@ export default class Scrollbox extends React.Component<{}, {sections: string[], 
     }
     box.scrollTop += excess
   }
-  scrollTo = () => {
+
+  const scrollTo = () => {
     var box = document.getElementById('scrollbox')
     var textelement = document.getElementById('')
   }
-  componentDidMount = () => {
+  
+  const componentDidMount = () => {
     // Listeners
     document.addEventListener('keydown', (e) => {
       const keyName = e.key
@@ -139,14 +125,14 @@ export default class Scrollbox extends React.Component<{}, {sections: string[], 
         box.scrollTop += lineheight
       }
     })
-    for (const section of this.state.sections) {
+    for (const section of sections) {
       document.getElementById(section).addEventListener('mouseover', (e) => {
         var heading = document.getElementById('Heading')
         heading.innerHTML = section
       })
     }
   }
-  render(): React.ReactNode {
+
     return (
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -154,23 +140,43 @@ export default class Scrollbox extends React.Component<{}, {sections: string[], 
             {/* Box */}
             <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-anchor="[data-aos-id-blocks]">
               <h4 className="h4 mb-2" id='Heading'>Abstract</h4>
-              <div style={Scrollbox.divstyle} id="scrollbox">
-                {this.renderText()}
+              <div style={divstyle} id="scrollbox">
+                {renderText()}
               </div>
-              <div style={Scrollbox.btncontainer}>
+              <div style={btncontainer}>
                 <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={Scrollbox.btnstyle} onClick={this.scrollUp}>scroll up</button>
+                style={btnstyle} onClick={scrollUp}>scroll up</button>
                 <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={Scrollbox.btnstyle} onClick={this.scrollDown}>scroll down</button>
+                style={btnstyle} onClick={scrollDown}>scroll down</button>
                 <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={Scrollbox.btnstyle} onClick={this.increaseFontSize}>+</button>
+                style={btnstyle} onClick={increaseFontSize}>+</button>
                 <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={Scrollbox.btnstyle} onClick={this.decreaseFontSize}>-</button>
+                style={btnstyle} onClick={decreaseFontSize}>-</button>
               </div>
             </div>
           </div>
         </div>
       </section>
     );
-  }
+}
+
+function formatText(rawText: string){
+    let sections = ["Footnotes"]
+    let text = []
+    let paragraph = ""
+    let splits = rawText.split('\n')
+    for (let i = 0; i < splits.length; i++) {
+        if ((splits[i].split(/( )/).length < 2) && (splits[i].charAt(0).match(/[A-Z]/))) {
+            text.push(paragraph)
+            sections.push(splits[i])
+            paragraph = ""
+            paragraph += `${splits[i]}\n`
+        }
+        else {
+            paragraph += ` ${splits[i]}`
+        }
+    }
+    text.push(paragraph)
+    console.log([sections, text])
+    return [sections, text]
 }

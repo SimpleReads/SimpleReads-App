@@ -18,10 +18,8 @@ export default function readPDF(data) {
     // Taking data and turning into into a form data object so it can be accessed after
     // the post req
     let form = new FormData();
-    console.log("File", data);
+    console.log(typeof(data))
     form.append("File", data);
-
-  
     return post(form);
   }
   
