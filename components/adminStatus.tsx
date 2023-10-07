@@ -18,11 +18,11 @@ export default function AdminStatusBar() {
     };
 
     const setOn = () => {
-        updateText("hello_world");
+        updateText("start");
     }
 
     const setOff = () => {
-        updateText("test");
+        updateText("stop");
     }
 
     const onSubmit = e => {
