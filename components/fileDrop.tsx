@@ -2,13 +2,15 @@
 
 import { DragEvent, useState } from 'react';
 import readPDF from '@/app/lib/pdfApi'
+import Link from 'next/link'
+import Router from 'next/router';
 
 
-export default function FileDrop() {
+
+export default function FileDrop({childToParent}) {
   const [isOver, setIsOver] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
-  const [text, setText] = useState<String>("Waiting for text");
-
+  const [info, setInfo] = useState<string>("Waiting for text");
 
   // Define the event handlers
   const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
@@ -22,8 +24,8 @@ export default function FileDrop() {
   };
 
   const updateText = async(file) => {
-    let text = await readPDF(file)
-    setText(text)
+    let info = await readPDF(file)
+    setInfo(info)
   }
 
   const ReadableBufferStream = (ab) => {
@@ -52,7 +54,6 @@ export default function FileDrop() {
             let arr = new Uint8Array(reader.result)
             let blob = new Blob([arr])
             updateText(file)
-            console.log(blob);
         };
 
         reader.onerror = () => {
@@ -90,18 +91,11 @@ export default function FileDrop() {
             'Drag and drop some files here'
         )}
         </div>
-        <div>
-            {text.split("\n").map(function (e) {
-                if ((e.split(' ').length < 3) && (e.charAt(0).toUpperCase() === e) && (e.charAt(0).toLowerCase() !== e)) {
-                    console.log(e, "A")
-                    return <h2>{e}</h2>  
-                } 
-                else {
-                    console.log(e.charAt(0))
-                    return <p>{e}</p>
-                }
-            })}
-        </div>
+        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+            type = "button" onClick = {() => childToParent(info)}>
+            CONFIRM
+        </button>
+
     </>
   );
 }
