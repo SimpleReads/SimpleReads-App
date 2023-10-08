@@ -192,10 +192,10 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
             let pos = document.getElementById(`${section}${i}Header`).getBoundingClientRect().top
             if (pos - y1 > 0) {
                 setLastHeader(sections[i-1])
-                break
+                return false
             }
         }
-
+        setLastHeader(sections[sections.length - 1])
   }
   
   const componentDidMount = () => {
