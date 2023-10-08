@@ -1,5 +1,6 @@
 'use client'
 import * as React from 'react'
+import Link from 'next/link'
 
 export default function ScrollBox({parentToChild, childToParent}) {
 
@@ -8,6 +9,8 @@ export default function ScrollBox({parentToChild, childToParent}) {
     let sections = i[0]
     let text = i[1]
     
+    let heights = []
+
     childToParent(sections)
 
     console.log(sections)
@@ -52,10 +55,10 @@ export default function ScrollBox({parentToChild, childToParent}) {
       <>
         {sections.map((section, index) => (
           <div>
-            <h1 style={headingStyle} className="scrollboxtext" id={section}>
+            <h1 style={headingStyle} className="scrollboxtext" id={`${section}${index}`}>
               <span onClick={() => {searchWord(section)}}>{section}</span>
             </h1>
-            <p style={textstyle} className="scrollboxtext" id={section}>
+            <p style={textstyle} className="scrollboxtext" id={`${section}${index}`}>
               {text[index].split(/( )/).map(word => <span onClick={() => {searchWord(word)}}>{word}</span>)}
             </p>
             <br></br>
@@ -109,9 +112,9 @@ export default function ScrollBox({parentToChild, childToParent}) {
     box.scrollTop += excess
   }
 
-  const scrollTo = () => {
-    var box = document.getElementById('scrollbox')
-    var textelement = document.getElementById('')
+  const scrollTo = (id) => {
+    console.log(id)
+    document.getElementById("scrollbox").scrollTo(0, 0)
   }
   
   const componentDidMount = () => {
@@ -134,29 +137,56 @@ export default function ScrollBox({parentToChild, childToParent}) {
   }
 
     return (
-      <section>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="py-12 md:py-20">
-            {/* Box */}
-            <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-anchor="[data-aos-id-blocks]">
-              <h4 className="h4 mb-2" id='Heading'>Abstract</h4>
-              <div style={divstyle} id="scrollbox">
-                {renderText()}
-              </div>
-              <div style={btncontainer}>
-                <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={btnstyle} onClick={scrollUp}>scroll up</button>
-                <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={btnstyle} onClick={scrollDown}>scroll down</button>
-                <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={btnstyle} onClick={increaseFontSize}>+</button>
-                <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                style={btnstyle} onClick={decreaseFontSize}>-</button>
-              </div>
+
+
+        <>
+        <div className="row-span-2">
+          <div className='pt-32 pb-12 md:pt-40 md:pb-20'>
+            {/* Side Buttons */}
+            <div className="max-w-sm mx-auto">
+              <form>
+                <div className="flex flex-wrap -mx-3 mt-6 ml-2">
+                  {sections.map((label, index) => (
+                    <div className="w-full px-3 mb-7">
+                      <button id = {`${label}${index}`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {() => scrollTo(`${label}${index}`)}>{label}</button>
+                    </div>
+                  ))}
+                </div>
+              </form>
             </div>
           </div>
         </div>
-      </section>
+        <div className = "row-span-4 col-span-4">
+          <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+            <section>
+                <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                <div className="py-12 md:py-20">
+                    {/* Box */}
+                    <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-anchor="[data-aos-id-blocks]">
+                    <h4 className="h4 mb-2" id='Heading'>Abstract</h4>
+                    <div style={divstyle} id="scrollbox">
+                        {renderText()}
+                    </div>
+                    <div style={btncontainer}>
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+                        style={btnstyle} onClick={scrollUp}>scroll up</button>
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+                        style={btnstyle} onClick={scrollDown}>scroll down</button>
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+                        style={btnstyle} onClick={increaseFontSize}>+</button>
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+                        style={btnstyle} onClick={decreaseFontSize}>-</button>
+                        <Link href = "#Footnotes"></Link>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+            </div>
+          </div>
+        </div>
+      </>
     );
 }
 
