@@ -42,7 +42,7 @@ def get_sagemaker_session(boto_session):
 def deploy_model(sess, role):
     # Configuration
     llm_image = get_huggingface_llm_image_uri("huggingface", version="0.9.3")
-    s3_model_uri = 's3://sagemaker-us-west-2-960115796077/huggingface-qlora-2023-09-02-23-54-15-2023-09-02-13-54-15-386/output/model.tar.gz'
+    s3_model_uri = os.getenv("S3_MODEL_URI")
     instance_type = "ml.g5.12xlarge"
     number_of_gpu = 4
     health_check_timeout = 300
@@ -90,7 +90,9 @@ def get_simplified_text(text, model):
 
     # send request to endpoint
     response = model.predict(payload)
-    output = str(response[0])
+    output = response[0]['generated_text']
+    # \n\n### Answer\nWe present QLORA remove everything before and including ### Answer
+    output = output.split("### Answer\n")[1]
     return output
 
 # # example function that does not inference

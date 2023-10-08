@@ -2,8 +2,11 @@ export default function getFlask(path) {
   async function getInfo(path) {
     const response = await fetch(`http://localhost:3001/${path}`);
     if (!response.ok) {
-      console.log(response.json());
-      throw new Error("AAAA");
+      const errorData = await response.json();
+      console.log(errorData);
+      throw new Error(
+        `Error fetching from server: ${errorData.error || "Unknown error"}`
+      );
     }
 
     const result = await response.json();

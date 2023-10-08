@@ -8,6 +8,7 @@ export default function AdminStatusBar() {
     const [status, setStatus] = React.useState<String>("Waiting");
 
     const updateText = async (status: string, data?: any) => {
+        console.log("Status", status)
         if (data) {
             let msg = postFlask(status, data);
             setStatus(await msg)
