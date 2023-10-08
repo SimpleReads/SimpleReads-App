@@ -52,18 +52,10 @@ function PopOutTextBox() {
         // Create a div element to hold the button and pop out text box
     <div className="popout-container">
         {/* Create a button element and attach a click event handler. */}
-        {!isTextBoxVisible && (
-            <button onClick={toggleTextBox} style={{
-                backgroundColor: 'blue', // Background color
-                padding: '10px', // Padding around the button
-                borderRadius: '5px', // Rounded corners
-                border: 'none', // No border
-                cursor: 'pointer', // Show a pointer cursor on hover
-                fontSize: '16px', // Set font size
-            }}>
-                Toggle Pop Box 
-            </button>
-        )}
+        <button onClick={toggleTextBox} className = "btn text-gray-900 bg-purple-700 hover:bg-purple-800 w-full">
+            Toggle Pop Box 
+        </button>
+        
 
         {/*Display the text box based on state. */}
         {isTextBoxVisible && (

@@ -1,15 +1,17 @@
 'use client'
 import * as React from 'react'
 import Link from 'next/link'
+import getDefs from '@/app/lib/getDefs'
 
-export default function ScrollBox({parentToChild, childToParent}) {
+export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
+
+
+    const [defining, setDefining] = React.useState<number>(0) 
 
     let rawText = parentToChild
     let i = formatText(rawText)
     let sections = i[0]
     let text = i[1]
-    
-    let heights = []
 
     childToParent(sections)
 
@@ -22,7 +24,7 @@ export default function ScrollBox({parentToChild, childToParent}) {
     };
     const btnstyle = {
         margin: '10px 5px 10px 5px',
-        fontSize: '32px',
+        fontSize: '20px',
         fontWeight: '900'
     };
     const textstyle = {
@@ -33,23 +35,68 @@ export default function ScrollBox({parentToChild, childToParent}) {
     const headingStyle = {
         fontSize: '50px',
         scrollBehavior: 'smooth',
-        textAlign: 'left'
+        textAlign: 'left',
     };
     const btncontainer = {
         marginLeft: 'auto',
         marginRight: '0'
     };
     
-    // Dictionary state
-    // Big text (to be replaced with server query)
-    //this.text = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat."
-    // Initialise empty text
-    // Styles
-  // Functions
-  const searchWord = (word) => {
-    throw new Error('pressed ' + word)
+
+    
+  
+  // Set a variable to track the position of the pop-out text box
+  const [textBoxLayout, setTextBoxLayout] = React.useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = React.useState(false);
+  const [offset, setOffset] = React.useState({ x: 0, y: 0 });
+  const [def, setDef] = React.useState<string>();
+
+
+  // DEFINE FUNCTIONS  
+  const searchWord = async (word) => {
+    if (defining > 0) {
+        setDef(await getDefs(2, 2, word))
+        setDefining(2)
+    }
   }
 
+  // Create a function to close the text box when an x button is clicked.
+  const closeTextBox = () => {
+      setDefining(0);
+  }; 
+
+  // Event handler for when the mouse button is pressed on the pop-out text box
+  const handleMouseDown = (e) => {
+      if (defining == 2) {
+          return;
+      }
+      setDragging(true);
+      setOffset({ x: e.clientX - textBoxLayout.x, y: e.clientY - textBoxLayout.y });
+  };
+
+  // Event handler for when the mouse button is released
+  const handleMouseUp = () => {
+      setDragging(false);
+  };
+
+  // Event handler for when the mouse is moved
+  const handleMouseMove = (e) => {
+      if (!dragging) {
+          return;
+      }
+      setTextBoxLayout({ x: e.clientX - offset.x, y: e.clientY - offset.y });
+  };
+
+
+  const toggleDefine = () => {
+    if (defining > 0) {
+        setDefining(0)
+    } else {
+        setDefining(1)
+    }
+  }
+
+  // SCROLL BOX FUNCTIONS
   const renderText = () => {
     return(
       <>
@@ -136,6 +183,7 @@ export default function ScrollBox({parentToChild, childToParent}) {
     }
   }
 
+    //COMPONENT
     return (
 
 
@@ -145,12 +193,70 @@ export default function ScrollBox({parentToChild, childToParent}) {
             {/* Side Buttons */}
             <div className="max-w-sm mx-auto">
               <form>
+                <div className="max-w-3xl mx-auto text-center">
+                    <h3 className="h3 mb-4" data-aos="fade-up">Sections</h3>
+                </div>
                 <div className="flex flex-wrap -mx-3 mt-6 ml-2">
                   {sections.map((label, index) => (
                     <div className="w-full px-3 mb-7">
                       <button id = {`${label}${index}`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {() => scrollTo(`${label}${index}`)}>{label}</button>
                     </div>
                   ))}
+                </div>
+                <div className="flex flex-wrap -mx-3 mt-0 ml-2">
+                    <div className="max-w-3xl mx-auto text-center">
+                        <h3 className="h3 mb-4" data-aos="fade-up">Tools</h3>
+                    </div>
+                    <div className="w-full px-3 mb-7">
+                        <button id = {`Simplify`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full">Simplify</button>
+                    </div>
+                    <div className="w-full px-3 mb-7">
+                        <button id = {`Define`}type = "button" className={defining > 0 ? ("btn text-gray-900 bg-purple-700 hover:bg-purple-800 w-full") : ("btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full")}
+                            onClick = {toggleDefine}>{defining > 0 ? ("Define Active, Click a Word to Define") : ("Define")}</button>
+                    </div>
+                    {/*Display the text box based on state. */}
+                    {defining == 2 && (
+                    <div className="popout-text-box" style={{
+                        backgroundColor: 'lightblue', // Set the background color
+                        padding: '10px', // Set padding
+                        borderRadius: '5px', // Set border radius
+                        boxShadow: '0 0 5px rgba(0, 0, 0, 0.3)', // Set box shadow
+                        marginTop: '10px', // Set margin top
+                        position: 'absolute', // Potisition is absolute
+                        zIndex: 9999, // Ensure it's on top of other elements
+                        left: `${textBoxLayout.x}px`, // Set left position
+                        top: `${textBoxLayout.y}px`, // Set top position
+                        }}
+                        onMouseDown={handleMouseDown}
+                        onMouseUp={handleMouseUp}
+                        onMouseMove={handleMouseMove}>
+                        {/* Add a close button "x" */}
+                        <button
+                            type = "button"
+                            onClick={closeTextBox}
+                            style={{
+                            position: 'absolute', // Position the button absolutely
+                            top: '5px', // Position from the top edge
+                            right: '5px', // Position from the right edge
+                            background: 'none', // No background color
+                            border: 'none', // No border
+                            cursor: 'pointer', // Show a pointer cursor on hover
+                            fontSize: '16px', // Set font size
+                        }}> &times;
+                        </button>
+
+                        {def.split('\n').map(e => <p>{e}</p>)}
+                    </div>
+                    )}
+                    <div className="w-full px-3 mb-7">
+                        <button id = {`Upload`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {uploadFile}>Upload File</button>
+                    </div>
+                    <div className = "w-full px-3 mb-7">
+                        <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" 
+                            onClick = {increaseFontSize}>Font (+)</button>
+                        <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" 
+                            onClick = {decreaseFontSize}>Font (-)</button>
+                    </div>  
                 </div>
               </form>
             </div>
@@ -168,16 +274,11 @@ export default function ScrollBox({parentToChild, childToParent}) {
                     <div style={divstyle} id="scrollbox">
                         {renderText()}
                     </div>
-                    <div style={btncontainer}>
+                    <div className = "w-full px-3 mb-7">
                         <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
                         style={btnstyle} onClick={scrollUp}>scroll up</button>
                         <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
                         style={btnstyle} onClick={scrollDown}>scroll down</button>
-                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                        style={btnstyle} onClick={increaseFontSize}>+</button>
-                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                        style={btnstyle} onClick={decreaseFontSize}>-</button>
-                        <Link href = "#Footnotes"></Link>
                     </div>
                     </div>
                 </div>
@@ -200,10 +301,9 @@ function formatText(rawText: string){
             text.push(paragraph)
             sections.push(splits[i])
             paragraph = ""
-            paragraph += `${splits[i]}\n`
         }
         else {
-            paragraph += ` ${splits[i]}`
+            paragraph += `${splits[i]} `
         }
     }
     text.push(paragraph)
