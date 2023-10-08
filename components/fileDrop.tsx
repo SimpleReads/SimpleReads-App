@@ -10,6 +10,7 @@ import Router from 'next/router';
 export default function FileDrop({childToParent}) {
   const [isOver, setIsOver] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [uploaded, setUploaded] =useState<boolean>(false);
   const [info, setInfo] = useState<string>("Waiting for text");
 
   // Define the event handlers
@@ -26,6 +27,7 @@ export default function FileDrop({childToParent}) {
   const updateText = async(file) => {
     let info = await readPDF(file)
     setInfo(info)
+    setUploaded(true)
   }
 
   const ReadableBufferStream = (ab) => {
@@ -86,7 +88,7 @@ export default function FileDrop({childToParent}) {
                     backgroundColor: isOver ? 'lightgray' : 'white',
                 }}
                 >
-                {files.length > 0 ? (
+                {uploaded ? (
                     <ul>
                     {files.map((file, index) => (
                         <li key={index}>{file.name}</li>
@@ -96,10 +98,20 @@ export default function FileDrop({childToParent}) {
                     'Drag and drop some files here'
                 )}
                 </div>
-                <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                    type = "button" onClick = {() => childToParent(info)}>
-                    CONFIRM
-                </button>
+                <div>
+                    {uploaded && (
+                        <section>
+                            <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+                            type = "button" onClick = {() => childToParent(info)}>
+                            CONFIRM
+                            </button>
+                            <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+                            type = "button" onClick = {() => setUploaded(false)}>
+                            REMOVE
+                            </button>
+                        </section>
+                    )}
+                </div>
             </section>
             </div>
           </div>

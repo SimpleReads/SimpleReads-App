@@ -292,12 +292,12 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
 }
 
 function formatText(rawText: string){
-    let sections = ["Footnotes"]
+    let sections = ["Preface"]
     let text = []
     let paragraph = ""
     let splits = rawText.split('\n')
     for (let i = 0; i < splits.length; i++) {
-        if ((splits[i].split(/( )/).length < 2) && (splits[i].charAt(0).match(/[A-Z]/))) {
+        if ((splits[i].split(/( )/).length < 3) && (splits[i].charAt(0).match(/[A-Z]/))) {
             text.push(paragraph)
             sections.push(splits[i])
             paragraph = ""
