@@ -66,36 +66,44 @@ export default function FileDrop({childToParent}) {
   };
 
   return (
-    <>
-        <div
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '300px',
-            width: '800px',
-            border: '1px dotted',
-            backgroundColor: isOver ? 'lightgray' : 'white',
-        }}
-        >
-        {files.length > 0 ? (
-            <ul>
-            {files.map((file, index) => (
-                <li key={index}>{file.name}</li>
-            ))}
-            </ul>
-        ) : (
-            'Drag and drop some files here'
-        )}
-        </div>
-        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-            type = "button" onClick = {() => childToParent(info)}>
-            CONFIRM
-        </button>
 
+    <>
+        <div className = "row-span-4 col-span-4">
+          <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+            <section>
+                <div
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '300px',
+                    width: '800px',
+                    border: '1px dotted',
+                    backgroundColor: isOver ? 'lightgray' : 'white',
+                }}
+                >
+                {files.length > 0 ? (
+                    <ul>
+                    {files.map((file, index) => (
+                        <li key={index}>{file.name}</li>
+                    ))}
+                    </ul>
+                ) : (
+                    'Drag and drop some files here'
+                )}
+                </div>
+                <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
+                    type = "button" onClick = {() => childToParent(info)}>
+                    CONFIRM
+                </button>
+            </section>
+            </div>
+          </div>
+        </div>
     </>
   );
 }
