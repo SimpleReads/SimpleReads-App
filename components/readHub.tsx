@@ -26,16 +26,17 @@ export default function ReadHub() {
     const meh = () => {
     }
 
-    const scrollTo = () => {
-        return 
+    const uploadFile = () => {
+        setUploadCheck(0)
     }
+
 
     return (
         <>
             {uploadCheck <= 0 ? (
                 <FileDrop childToParent={upload}/>
             ) : (
-                <ScrollBox parentToChild={text} childToParent={headerCheck == 0 ? (uploadHeaders) : (meh)}/>
+                <ScrollBox parentToChild={text} childToParent={headerCheck == 0 ? (uploadHeaders) : (meh)} uploadFile = {uploadFile}/>
             )}
         </>
     )
