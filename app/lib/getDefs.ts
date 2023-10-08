@@ -7,31 +7,39 @@ export default function getDefs(numOfUsages: number, numOfDefs: number, word: st
         return new Promise(function (resolve, reject) {
             axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
                 .then(response => {
-                    resolve(response.data)
+                    resolve([0, response.data])
                 })
                 .catch(error => {
                     console.log(error.response.data);
-                    reject(error.response.data)
+                    resolve([1, "Sorry we couldn't find a definition for that word"])
                 });
         });
     }
 
     async function formatDefs(numOfUsages: number, numOfDefs: number, info: any, word: string) {
-        let content = await info;
-        content = content[0]["meanings"];
-        let str = `${word}\n`;
-        let usage = 0;
-        let def = 0;
-        while ((usage < numOfUsages) && (usage < content.length)) {
-            str += `${content[usage]["partOfSpeech"]}\n`;
-            while ((def < numOfDefs) && (def < content[usage]["definitions"].length)) {
-                str += `\t${content[usage]["definitions"][def]["definition"]}\n`;
-                def += 1;
+        let i = await info
+        let content = i[1]
+        let str = ""
+        if (i[0] == 0){
+            content = content[0]["meanings"];
+            str = `${word}\n`;
+            let usage = 0;
+            let def = 0;
+            while ((usage < numOfUsages) && (usage < content.length)) {
+                str += `${content[usage]["partOfSpeech"]}\n`;
+                while ((def < numOfDefs) && (def < content[usage]["definitions"].length)) {
+                    str += `\t${content[usage]["definitions"][def]["definition"]}\n`;
+                    def += 1;
+                }
+                str += "\n";
+                usage += 1;
+                def = 0;
             }
-            str += "\n";
-            usage += 1;
-            def = 0;
         }
+        else {
+            str = content
+        }
+        
         //console.log(str);
         return str;
     }
