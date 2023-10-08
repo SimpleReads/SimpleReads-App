@@ -11,6 +11,7 @@ export default function FileDrop({childToParent}) {
   const [isOver, setIsOver] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
   const [uploaded, setUploaded] =useState<boolean>(false);
+  const [status, setStatus] = useState<string>("Drag and drop a pdf file here")
   const [info, setInfo] = useState<string>("Waiting for text");
 
   // Define the event handlers
@@ -43,6 +44,7 @@ export default function FileDrop({childToParent}) {
   const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsOver(false);
+    setStatus("LOADING")
 
     // Fetch the files
     const droppedFiles = Array.from(event.dataTransfer.files);
@@ -95,7 +97,7 @@ export default function FileDrop({childToParent}) {
                     ))}
                     </ul>
                 ) : (
-                    'Drag and drop some files here'
+                    status
                 )}
                 </div>
                 <div>
@@ -106,7 +108,7 @@ export default function FileDrop({childToParent}) {
                             CONFIRM
                             </button>
                             <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                            type = "button" onClick = {() => setUploaded(false)}>
+                            type = "button" onClick = {() => {setUploaded(false); setStatus("Drag and drop a pdf file here")}}>
                             REMOVE
                             </button>
                         </section>

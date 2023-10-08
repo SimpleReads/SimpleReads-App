@@ -20,8 +20,16 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
 
     const divstyle = {
         overflow: 'auto',
-        height: 'min(90vh - 200px, 600px)'
+        height: 'min(90vh - 200px, 600px)',
     };
+
+    const divstyle2 = {
+        overflow: 'auto',
+        position: 'relative',
+        height: 'min(90vh - 200px, 300px)',
+        width: "100%"
+    };
+
     const btnstyle = {
         margin: '10px 5px 10px 5px',
         fontSize: '20px',
@@ -102,7 +110,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
       <>
         {sections.map((section, index) => (
           <div>
-            <h1 style={headingStyle} className="scrollboxtext" id={`${section}${index}`}>
+            <h1 style={headingStyle} className="scrollboxtext" id={`${section}${index}Header`}>
               <span onClick={() => {searchWord(section)}}>{section}</span>
             </h1>
             <p style={textstyle} className="scrollboxtext" id={`${section}${index}`}>
@@ -160,8 +168,13 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
   }
 
   const scrollTo = (id) => {
-    console.log(id)
     document.getElementById("scrollbox").scrollTo(0, 0)
+    let y = document.getElementById(id).getBoundingClientRect().y
+    let x = document.getElementById(id).getBoundingClientRect().x
+    let y1 = document.getElementById("scrollbox").getBoundingClientRect().y
+    let x1 = document.getElementById("scrollbox").getBoundingClientRect().x
+    console.log(x1, y1)
+    document.getElementById("scrollbox").scrollTo({top: y - y1, behavior: 'smooth'})
   }
   
   const componentDidMount = () => {
@@ -197,11 +210,13 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                     <h3 className="h3 mb-4" data-aos="fade-up">Sections</h3>
                 </div>
                 <div className="flex flex-wrap -mx-3 mt-6 ml-2">
-                  {sections.map((label, index) => (
-                    <div className="w-full px-3 mb-7">
-                      <button id = {`${label}${index}`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {() => scrollTo(`${label}${index}`)}>{label}</button>
+                    <div style={divstyle2} id="section-scrollbox">
+                        {sections.map((label, index) => (
+                            <div className="w-full px-3 mb-7">
+                            <button id = {`${label}${index}button`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {() => scrollTo(`${label}${index}Header`)}>{label}</button>
+                            </div>
+                        ))}
                     </div>
-                  ))}
                 </div>
                 <div className="flex flex-wrap -mx-3 mt-0 ml-2">
                     <div className="max-w-3xl mx-auto text-center">
@@ -297,7 +312,7 @@ function formatText(rawText: string){
     let paragraph = ""
     let splits = rawText.split('\n')
     for (let i = 0; i < splits.length; i++) {
-        if ((splits[i].split(/( )/).length < 3) && (splits[i].charAt(0).match(/[A-Z]/))) {
+        if ((splits[i].split(/( )/).length < 3) && (splits[i].charAt(0).match(/[A-Z]/)) && (/^[A-Za-z\s]*$/.test(splits[i])) && (splits[i].length > 5)) {
             text.push(paragraph)
             sections.push(splits[i])
             paragraph = ""

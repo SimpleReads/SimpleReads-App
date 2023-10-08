@@ -48,7 +48,7 @@ def parsePDF():
     file = request.files["File"].stream.read()
     b = BytesIO(file)
     output_string = StringIO("A")
-    text = extract_text_to_fp(b, output_string, laparams=LAParams(), output_type='text', codec=None)
+    extract_text_to_fp(b, output_string, laparams=LAParams(), output_type='text', codec=None)
     output_string.seek(0)
     response = jsonify({"message": output_string.read()})
 

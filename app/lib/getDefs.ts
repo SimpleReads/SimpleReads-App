@@ -44,7 +44,13 @@ export default function getDefs(numOfUsages: number, numOfDefs: number, word: st
         return str;
     }
 
-    let info = getInfo(word);
+    let newword = word
+    let finalChar = word[word.length - 1]
+    if (!finalChar.match(/[a-zA-Z]/)) {
+        newword = word.substring(0, word.length - 1)
+    }
+
+    let info = getInfo(newword);
     let str = formatDefs(numOfUsages, numOfDefs, info, word);
     //onsole.log(str);
     return str;
