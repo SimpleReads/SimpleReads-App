@@ -12,7 +12,8 @@ app = Flask(__name__)
 llm = None
 
 def load_env_variables():
-    load_dotenv()
+    dotenv_path = os.path.join('..', '.env')
+    load_dotenv(dotenv_path)
     return {
         'aws_default_region': os.getenv("AWS_DEFAULT_REGION"),
         'aws_access_key_id': os.getenv('AWS_ACCESS_KEY_ID'),
