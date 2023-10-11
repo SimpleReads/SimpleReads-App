@@ -1,5 +1,8 @@
 # Flask Hello World API route on port
 from flask import Flask, request, jsonify
+from pdfminer.high_level import extract_text, extract_text_to_fp
+from pdfminer.layout import LAParams
+from io import BytesIO, StringIO
 
 app = Flask(__name__)
 
@@ -33,6 +36,21 @@ def simplify():
     # ------------------------------
 
     response = jsonify({"message": msg})
+
+    # Headers to give CORS clearance
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Methods", "GET, POST")
+    return response
+
+@app.route("/parsePDF", methods=["POST"])
+def parsePDF():
+
+    file = request.files["File"].stream.read()
+    b = BytesIO(file)
+    output_string = StringIO("A")
+    extract_text_to_fp(b, output_string, laparams=LAParams(), output_type='text', codec=None)
+    output_string.seek(0)
+    response = jsonify({"message": output_string.read()})
 
     # Headers to give CORS clearance
     response.headers.add("Access-Control-Allow-Origin", "*")

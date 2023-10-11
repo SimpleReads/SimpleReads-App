@@ -30,7 +30,7 @@ export default function Hero() {
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
                 {/** I think we will be able to use the <FileUpload> instead of <Link>*/}
-                <Link className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" href="/upload">Upload a File</Link>
+                <Link className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" href="/read">Upload a File</Link>
               </div>
               {/**
               <div data-aos="fade-up" data-aos-delay="600">
