@@ -37,6 +37,8 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
         fontSize: '28px',
         scrollBehavior: 'smooth' as 'smooth',
         textAlign: 'left' as 'left',
+        lineHeight: 2,
+        letterSpacing: 1
     };
 
     const headingStyle = {
@@ -208,16 +210,15 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
 
 
         <>
-        <div className="row-span-2">
-          <div className='pt-32 pb-12 md:pt-40 md:pb-20'>
+        <div className="row-auto">
+          <div className='pt-32 pb-0 md:pt-40 md:pb-0'>
             {/* Side Buttons */}
             <div className="max-w-sm mx-auto">
               <form>
                 <div className="max-w-3xl mx-auto text-center">
                     <h3 className="h3 mb-4" data-aos="fade-up">Sections</h3>
                 </div>
-                <div className="flex flex-wrap -mx-3 mt-6 ml-2">
-                    <div style={divstyle2} id="section-scrollbox">
+                <div className="flex flex-wrap -mx-3 mt-6 ml-2 mb-8">                    <div style={divstyle2} id="section-scrollbox">
                         {sections.map((label, index) => (
                             <div className="w-full px-3 mb-7">
                             <button id = {`${label}${index}button`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {() => scrollTo(`${label}${index}Header`)}>{label}</button>
@@ -234,7 +235,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                     </div>
                     <div className="w-full px-3 mb-7">
                         <button id = {`Define`}type = "button" className={defining > 0 ? ("btn text-gray-900 bg-purple-700 hover:bg-purple-800 w-full") : ("btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full")}
-                            onClick = {toggleDefine}>{defining > 0 ? ("Define Active, Click a Word to Define") : ("Define")}</button>
+                            onClick = {toggleDefine}>{defining > 0 ? ("Click a Word to Define") : ("Define")}</button>
                     </div>
                     {/*Display the text box based on state. */}
                     {defining == 2 && (
@@ -273,7 +274,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                     <div className="w-full px-3 mb-7">
                         <button id = {`Upload`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {uploadFile}>Upload File</button>
                     </div>
-                    <div className = "w-full px-3 mb-7">
+                    <div className = "w-full px-3 mb-7 grid grid-cols-2 gap-4">
                         <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" 
                             onClick = {increaseFontSize}>Font (+)</button>
                         <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" 
@@ -284,9 +285,9 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
             </div>
           </div>
         </div>
-        <div className = "row-span-4 col-span-4">
-          <div className="pt-32 pb-12 md:pt-40 md:pb-20">
-            <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+        <div className = "row-auto col-span-4">
+          <div className="pt-32 pb-0 md:pt-32 md:pb-0">
+            <div className="max-w-full mx-auto text-center pb-0 md:pb-0">
             <section>
                 <div className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="py-12 md:py-20">
@@ -296,11 +297,11 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                     <div style={divstyle} id="scrollbox" onScroll={() => {timer = checkScroll(timer)}}>
                         {renderText()}
                     </div>
-                    <div className = "w-full px-3 mb-7">
-                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                        style={btnstyle} onClick={scrollUp}>scroll up</button>
-                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                        style={btnstyle} onClick={scrollDown}>scroll down</button>
+                    <div className = "w-full pt-4 px-3 mb-7  flex justify-center items-center space-x-4">
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0" 
+                        onClick={scrollUp}>Scroll Up</button>
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0" 
+                        onClick={scrollDown}>Scroll Down</button>
                     </div>
                     </div>
                 </div>
