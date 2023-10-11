@@ -1,6 +1,7 @@
 export default function readPDF(data) {
     async function post(data) {
-      const response = await fetch("http://localhost:3001/parsePDF", {
+        console.log("new ip: 54.212.16.183")
+      const response = await fetch("http://54.212.16.183:5000/parsePDF", {
         method: "POST",
         body: data,
       });

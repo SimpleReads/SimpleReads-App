@@ -1,6 +1,6 @@
 export default function postFlask(path: string, data) {
   async function post(path, data) {
-    const response = await fetch(`http://localhost:3001/${path}`, {
+    const response = await fetch(`http://54.212.16.183:5000/${path}`, {
       method: "POST",
       body: data,
     });
