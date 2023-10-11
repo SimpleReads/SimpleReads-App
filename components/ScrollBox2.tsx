@@ -23,7 +23,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
 
     const divstyle2 = {
         overflow: 'auto',
-        position: 'relative',
+        position: 'relative' as 'relative',
         height: 'min(90vh - 200px, 300px)',
         width: "100%"
     };
@@ -35,13 +35,14 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
     };
     const textstyle = {
         fontSize: '28px',
-        scrollBehavior: 'smooth',
-        textAlign: 'left'
+        scrollBehavior: 'smooth' as 'smooth',
+        textAlign: 'left' as 'left',
     };
+
     const headingStyle = {
         fontSize: '50px',
-        scrollBehavior: 'smooth',
-        textAlign: 'left',
+        scrollBehavior: 'smooth' as 'smooth',
+        textAlign: 'left' as 'left',
     };
     const btncontainer = {
         marginLeft: 'auto',
@@ -125,24 +126,28 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
   }
 
   const increaseFontSize = () => {
-    var box = document.getElementsByClassName('scrollboxtext')
+    // var box = Array.from(document.getElementsByClassName('scrollboxtext'))
+    // for (const b of box) {
+	//     var fontsize = parseFloat(window.getComputedStyle(b, null).getPropertyValue('font-size'))
+    var box = Array.from(document.getElementsByClassName('scrollboxtext') as HTMLCollectionOf<HTMLElement>);
     for (const b of box) {
-	    var fontsize = parseFloat(window.getComputedStyle(b, null).getPropertyValue('font-size'))
+        var fontsize = parseFloat(window.getComputedStyle(b, null).getPropertyValue('font-size'));
 	    if (fontsize < 79) {
 	      b.style.fontSize = (fontsize + 2) + 'px'
 	    }
     }
   }
 
-  const decreaseFontSize = () => {
+    const decreaseFontSize = () => {
+        Array.from(document.getElementsByClassName("scrollboxtext")).forEach(function(item) {
+            const htmlElement = item as HTMLElement;
+            var fontsize = parseFloat(window.getComputedStyle(htmlElement, null).getPropertyValue('font-size'));
+            if (fontsize > 17) {
+                htmlElement.style.fontSize = (fontsize - 2) + 'px';
+            }
+        });
+    }
 
-    Array.from(document.getElementsByClassName("scrollboxtext")).forEach(function(item) {
-        var fontsize = parseFloat(window.getComputedStyle(item, null).getPropertyValue('font-size'))
-	    if (fontsize > 17) {
-	    	item.style.fontSize = (fontsize - 2) + 'px'
-	    }
-    });
-  }
 
   const scrollUp = () => {
     var box = document.getElementById('scrollbox')
