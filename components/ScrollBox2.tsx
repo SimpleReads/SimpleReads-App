@@ -197,25 +197,6 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
         }
         setLastHeader(sections[sections.length - 1])
   }
-  
-  const componentDidMount = () => {
-    // Listeners
-    document.addEventListener('keydown', (e) => {
-      const keyName = e.key
-      if (keyName == "Enter") {
-        var box = document.getElementById('scrollbox')
-        var textelement = document.getElementsByClassName('scrollboxtext')[0]
-        var lineheight = parseFloat(window.getComputedStyle(textelement, null).lineHeight)
-        box.scrollTop += lineheight
-      }
-    })
-    for (const section of sections) {
-      document.getElementById(section).addEventListener('mouseover', (e) => {
-        var heading = document.getElementById('Heading')
-        heading.innerHTML = section
-      })
-    }
-  }
 
     //COMPONENT
     return (
