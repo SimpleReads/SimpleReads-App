@@ -95,6 +95,38 @@ def get_simplified_text(text, model):
     output = output.split("### Answer\n")[1]
     return output
 
+
+def construct_summarisation_instruction(text):
+    """
+    Constructs a summarisation instruction based on the provided text.
+    """
+    return f"Please summarise this text: {text}"
+
+
+def get_summarised_text(text, model):
+    """
+    Sends a summarisation request to the model and returns the summarised text.
+    """
+    instruction = construct_summarisation_instruction(text)
+    payload = {
+        "inputs": instruction,
+        "parameters": {
+            "do_sample": True,
+            "top_p": 0.9,
+            "temperature": 0.8,
+            "max_new_tokens": 1024,
+            "repetition_penalty": 1.03,
+            "stop": []
+        }
+    }
+
+    # send request to endpoint
+    response = model.predict(payload)
+    output = response[0]['generated_text']
+    # \n\n### Answer\nWe present QLORA remove everything before and including ### Answer
+    output = output.split("### Answer\n")[1]
+    return output
+
 # # example function that does not inference
 # def get_simplified_text(text, model):
 #     return text
@@ -143,6 +175,20 @@ def simplify():
     response.headers.add("Access-Control-Allow-Origin", "*")
     response.headers.add("Access-Control-Allow-Methods", "GET, POST")
     return response
+
+
+@app.route("/summarise_text", methods=["POST"])
+def summarise():
+    text1 = request.form["text1"]
+
+    # Get the simplified text from the model
+    simplified_text = get_simplified_text(text1, llm)
+
+    response = jsonify({"message": simplified_text})
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Methods", "GET, POST")
+    return response
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
