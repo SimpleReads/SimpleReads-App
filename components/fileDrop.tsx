@@ -41,7 +41,7 @@ export default function FileDrop({childToParent}) {
   }
   
 
-  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+const handleDrop = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsOver(false);
     setStatus("LOADING")
@@ -55,19 +55,23 @@ export default function FileDrop({childToParent}) {
         const reader = new FileReader();
         
         reader.onloadend = () => {
-            let arr = new Uint8Array(reader.result)
-            let blob = new Blob([arr])
-            updateText(file)
+            if (reader.result instanceof ArrayBuffer) {
+                let arr = new Uint8Array(reader.result);
+                let blob = new Blob([arr]);
+                updateText(file);
+            } else {
+                console.error('Expected ArrayBuffer but got string');
+            }
         };
 
         reader.onerror = () => {
             console.error('There was an issue reading the file.');
         };
-        // reader.readAsDataURL(file);
+
         reader.readAsArrayBuffer(file);
         return reader;
     });
-  };
+};
 
   return (
 
