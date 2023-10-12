@@ -165,6 +165,9 @@ output/
 # Node modules
 node_modules/
 
+# package-lock.json
+package-lock.json
+
 # NextJS
 .next/
 next-env.d.ts
