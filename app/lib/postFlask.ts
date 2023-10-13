@@ -1,4 +1,4 @@
-const postFlaskAPI = async (path, data) => {
+export const postFlaskAPI = async (path, data) => {
   const response = await fetch(`/api/postFlask?path=${path}`, {
     // Assuming you've a postFlask API route
     method: "POST",
