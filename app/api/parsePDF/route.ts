@@ -1,4 +1,5 @@
 import { NextRequest } from "next/server";
+import config from "@/app/config/config";
 
 async function streamToBlob(stream: ReadableStream<Uint8Array>): Promise<Blob> {
   const data = await new Response(stream).arrayBuffer();
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
     formData.append("File", blob, "uploaded.pdf");
 
     // Fetch with the FormData object as body
-    const flaskResponse = await fetch(`http://54.212.16.183:5000/parsePDF`, {
+    const flaskResponse = await fetch(`${config.flaskServer}/parsePDF`, {
       method: "POST",
       body: formData, // No need to explicitly set headers, fetch will handle it
     });
