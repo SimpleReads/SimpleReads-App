@@ -1,6 +1,6 @@
 import * as React from "react";
-import getFlask from "@/app/lib/flaskGrab";
-import postFlask from "@/app/lib/postToFlask"; // assuming you also have a postFlask function
+import getFlaskAPI from "@/app/lib/getFlask";
+import postFlaskAPI from "@/app/lib/postFlask"; // assuming you also have a postFlask function
 import Link from 'next/link'
 
 export default function AdminStatusBar() {
@@ -9,11 +9,11 @@ export default function AdminStatusBar() {
 
     const updateText = async (status: string, data?: any) => {
         if (data) {
-            let msg = postFlask(status, data);
-            setStatus(await msg)
+            let msg = await postFlaskAPI(status, data);
+            setStatus(msg);
         } else {
-            let msg = getFlask(status);
-            setStatus(await msg)
+            let msg = await getFlaskAPI(status);
+            setStatus(msg);
         }
     };
 
