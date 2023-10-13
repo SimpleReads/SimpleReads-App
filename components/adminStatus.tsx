@@ -1,6 +1,4 @@
 import * as React from "react";
-import { getFlaskAPI } from "@/app/lib/getFlask";
-import { postFlaskAPI } from "@/app/lib/postFlask"; // assuming you also have a postFlask function
 import Link from 'next/link'
 
 export default function AdminStatusBar() {
@@ -8,23 +6,45 @@ export default function AdminStatusBar() {
     const [status, setStatus] = React.useState<String>("Waiting");
 
     const updateText = async (status: string, data?: any) => {
-        if (data) {
-            // let msg = postFlaskAPI(status, data);
-            let msg = "test"
-            setStatus(await msg)
-        } else {
-            let msg = getFlaskAPI("hello_world");
-            let message = msg["message"]
-            setStatus(await message)
+        console.log("status, data:", status, data);
+        try {
+            let endpoint;
+            if (status === "START") {
+                endpoint = "/api/startModel";
+            } else if (status === "STOP") {
+                endpoint = "/api/stopModel"; // assuming you have a stopModel endpoint
+            } else if (status === "simplifyText") {
+                endpoint = "/api/simplifyText"; // assuming you have a simplifyText endpoint
+            } else {
+                throw new Error("Invalid status provided");
+            }
+
+    
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                body: data,
+            });
+    
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("Error from server:", errorData);
+                setStatus("Error occurred");
+            } else {
+                const result = await response.json();
+                setStatus(result.message || "No message returned from server");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            setStatus("Error occurred");
         }
     };
 
     const setOn = () => {
-        updateText("hello_world");
+        updateText("START");
     }
 
     const setOff = () => {
-        updateText("test");
+        updateText("STOP");
     }
 
     const onSubmit = e => {
