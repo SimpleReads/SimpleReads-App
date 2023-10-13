@@ -7,7 +7,7 @@ export default function readPDF(data) {
       body: formData,
     });
 
-    console.log(response);
+    console.log("response", response);
 
     if (!response.ok) {
       const errorData = await response.json();
