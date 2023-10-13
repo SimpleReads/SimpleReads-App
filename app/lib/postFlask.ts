@@ -1,11 +1,7 @@
 export const postFlaskAPI = async (path, data) => {
-  const response = await fetch(`/api/postFlask?path=${path}`, {
-    // Assuming you've a postFlask API route
+  const response = await fetch("/api/parsePDF", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
+    body: data,
   });
   const responseData = await response.json();
   return responseData.message;

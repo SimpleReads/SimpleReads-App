@@ -9,7 +9,8 @@ export default function AdminStatusBar() {
 
     const updateText = async (status: string, data?: any) => {
         if (data) {
-            let msg = postFlaskAPI(status, data);
+            // let msg = postFlaskAPI(status, data);
+            let msg = "test"
             setStatus(await msg)
         } else {
             let msg = getFlaskAPI("hello_world");

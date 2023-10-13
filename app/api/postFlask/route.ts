@@ -1,38 +1,20 @@
-// app/api/postFlask/route.ts
 import { NextRequest } from "next/server";
+import config from "@/app/config/config";
 
-async function streamToArrayBuffer(
-  stream: ReadableStream<Uint8Array>
-): Promise<ArrayBuffer> {
-  const chunks = [];
-  const reader = stream.getReader();
-
-  let chunk;
-  while (true) {
-    chunk = await reader.read();
-    if (chunk.done) {
-      break;
-    }
-    chunks.push(chunk.value);
-  }
-
-  return new Uint8Array(chunks.flat()).buffer;
+async function streamToBlob(stream: ReadableStream<Uint8Array>): Promise<Blob> {
+  const data = await new Response(stream).arrayBuffer();
+  return new Blob([data], { type: "application/pdf" });
 }
 
 export async function POST(request: NextRequest) {
-  const path = request.headers.get("x-flask-path") || "";
   try {
-    // Convert the ArrayBuffer to a Blob for the FormData object
-    const arrayBuffer = await streamToArrayBuffer(request.body);
-    const blob = new Blob([new Uint8Array(arrayBuffer)], {
-      type: "application/pdf",
-    });
-
-    // Create a FormData object and append the blob as a file
+    // Create a FormData object and append the stream as a file
     const formData = new FormData();
-    formData.append("File", blob, "uploaded.pdf"); // "File" field name to match the Flask endpoint
+    const blob = await streamToBlob(request.body);
+    formData.append("File", blob, "uploaded.pdf");
 
-    const flaskResponse = await fetch(`http://54.212.16.183:5000/${path}`, {
+    // Fetch with the FormData object as body
+    const flaskResponse = await fetch(`${config}/parsePDF`, {
       method: "POST",
       body: formData, // No need to explicitly set headers, fetch will handle it
     });
