@@ -1,6 +1,5 @@
 import * as React from "react";
 import getDefs from "../app/lib/getDefs";
-import { getFlaskAPI } from "@/app/lib/getFlask"; // Import the getFlaskAPI function
 
 let NUM_OF_DEFS = 2;
 let NUM_OF_USAGES = 2;
@@ -16,7 +15,6 @@ export default class DicButton extends React.Component<{}, { defs: string; flask
 
   updateText = async (currentWord) => {
     this.setState({ defs: await getDefs(NUM_OF_USAGES, NUM_OF_DEFS, currentWord) });
-    this.setState({ flask: await getFlaskAPI("test") }); // Use getFlaskAPI instead of getInfo
   };
 
   onSubmit = (e) => {
