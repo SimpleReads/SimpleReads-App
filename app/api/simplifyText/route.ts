@@ -4,14 +4,16 @@ import config from "@/app/config/config";
 export async function POST(request: NextRequest) {
   // Logging the endpoint you're hitting can be useful for debugging.
   // Consider a more structured logger for production use.
-  console.log(`Forwarding request to: ${config.flaskServer}/stop`);
-
+  console.log(`Forwarding request to: ${config.flaskServer}/simplify_text`);
+  // Read the request body as text
   try {
-    const flaskResponse = await fetch(`${config.flaskServer}/stop`, {
+    const text = await request.text();
+    const flaskResponse = await fetch(`${config.flaskServer}/simplify_text`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: text,
     });
 
     const data = await flaskResponse.json();
