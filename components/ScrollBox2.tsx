@@ -3,11 +3,12 @@ import * as React from 'react'
 import Link from 'next/link'
 import getDefs from '@/app/lib/getDefs'
 import { time } from 'console'
+import simplifyPDF from '@/app/lib/simplifyPdf'
 
 export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
 
 
-    const [defining, setDefining] = React.useState<number>(0) 
+    const [defining, setDefining] = React.useState<number>(0)
 
     let rawText = parentToChild
     let i = formatText(rawText)
@@ -61,8 +62,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
   const [offset, setOffset] = React.useState({ x: 0, y: 0 });
   const [def, setDef] = React.useState<string>();
   const [lastHeader, setLastHeader] = React.useState<string>();
-  const [lastPos, setLastPos] = React.useState<number>(0);
-  const [nextPos, setNextPos] = React.useState<number>();
+
   let timer = -1
 
   // DEFINE FUNCTIONS  
@@ -128,6 +128,8 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
     )
   }
 
+  const [textItems, setTextItems] = React.useState<React.JSX.Element>(renderText())
+
   const increaseFontSize = () => {
     // var box = Array.from(document.getElementsByClassName('scrollboxtext'))
     // for (const b of box) {
@@ -185,6 +187,10 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
     document.getElementById("scrollbox").scrollTo({top: y - y1, behavior: 'smooth'})
   }
 
+  const simplify = async(oldtext) => {
+    text = await simplifyPDF(oldtext)
+    setTextItems(renderText())
+  }
 
   const checkScroll = (timer) => {
     if (timer != -1){
@@ -205,6 +211,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
         }
         setLastHeader(sections[sections.length - 1])
   }
+
 
     //COMPONENT
     return (
@@ -233,7 +240,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                         <h3 className="h4 mb-4" data-aos="fade-up">Tools</h3>
                     </div>
                     <div className="w-full px-3 mb-3">
-                        <button id = {`Simplify`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">Simplify</button>
+                        <button onClick={() => simplify(text)} id = {`Simplify`} type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">Simplify</button>
                     </div>
                     <div className="w-full px-3 mb-3">
                         <button id = {`Define`}type = "button" className={defining > 0 ? ("btn text-gray-900 bg-purple-700 hover:bg-purple-800 w-full tracking-wider py-2") : ("btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2")}
@@ -297,7 +304,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                     <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-anchor="[data-aos-id-blocks]">
                     <h4 className="h4 mb-2" id='Heading'>{lastHeader}</h4>
                     <div style={divstyle} id="scrollbox" onScroll={() => {timer = checkScroll(timer)}}>
-                        {renderText()}
+                        {textItems}
                     </div>
                     <div className = "w-full pt-4 px-3 mb-7  flex justify-center items-center space-x-4">
                         <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0 tracking-wider py-2" 
