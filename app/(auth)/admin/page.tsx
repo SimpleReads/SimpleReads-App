@@ -1,11 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import DicButton from '@/components/dicButton';
-import Link from 'next/link';
 import AdminStausBar from '@/components/adminStatus';
 
-
+/**
+ * Admin page for admin level users to start and stop the model operations
+ * @returns admin page 
+ */
 const Admin = () => {
   const [text, setText] = useState('');
 

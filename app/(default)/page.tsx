@@ -16,13 +16,8 @@ import Testimonials from '@/components/testimonials'
 export default function Home() {
   return (
     <>
-      <Hero />
-      <Testimonials />
-      {/**
-      <Features />
-      <Zigzag />
-      <Testimonials />
-  */}
+    {/** Hero contains the Title, small description and uploaded button components*/}
+      <Hero /> 
     </>
   )
 }
