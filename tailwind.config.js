@@ -60,7 +60,7 @@ module.exports = {
         tight: '-0.01em',
         normal: '0',
         wide: '0.01em',
-        wider: '0.02em',
+        wider: '0.075em',
         widest: '0.4em',
       },
       minWidth: {

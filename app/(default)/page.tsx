@@ -9,15 +9,15 @@ import Newsletter from '@/components/newsletter'
 import Zigzag from '@/components/zigzag'
 import Testimonials from '@/components/testimonials'
 
+/**
+ * Home Page Layout. 
+ * @returns Home page
+ */
 export default function Home() {
   return (
     <>
-      <Hero />
-      {/**
-      <Features />
-      <Zigzag />
-      <Testimonials />
-  */}
+    {/** Hero contains the Title, small description and uploaded button components*/}
+      <Hero /> 
     </>
   )
 }

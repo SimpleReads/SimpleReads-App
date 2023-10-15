@@ -3,11 +3,12 @@ import * as React from 'react'
 import Link from 'next/link'
 import getDefs from '@/app/lib/getDefs'
 import { time } from 'console'
+import simplifyPDF from '@/app/lib/simplifyPdf'
 
 export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
 
 
-    const [defining, setDefining] = React.useState<number>(0) 
+    const [defining, setDefining] = React.useState<number>(0)
 
     let rawText = parentToChild
     let i = formatText(rawText)
@@ -18,20 +19,21 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
 
     const divstyle = {
         overflow: 'auto',
-        height: 'min(90vh - 200px, 600px)',
+        height: 'min(90vh - 200px, 1000px)',
     };
 
     const divstyle2 = {
         overflow: 'auto',
         position: 'relative' as 'relative',
-        height: 'min(90vh - 200px, 300px)',
+        height: 'min(60vh - 200px, 300px)',
         width: "100%"
     };
 
     const btnstyle = {
         margin: '10px 5px 10px 5px',
         fontSize: '20px',
-        fontWeight: '900'
+        fontWeight: '900',
+        letterSpacing: 2
     };
     const textstyle = {
         fontSize: '28px',
@@ -60,8 +62,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
   const [offset, setOffset] = React.useState({ x: 0, y: 0 });
   const [def, setDef] = React.useState<string>();
   const [lastHeader, setLastHeader] = React.useState<string>();
-  const [lastPos, setLastPos] = React.useState<number>(0);
-  const [nextPos, setNextPos] = React.useState<number>();
+
   let timer = -1
 
   // DEFINE FUNCTIONS  
@@ -127,6 +128,8 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
     )
   }
 
+  const [textItems, setTextItems] = React.useState<React.JSX.Element>(renderText())
+
   const increaseFontSize = () => {
     // var box = Array.from(document.getElementsByClassName('scrollboxtext'))
     // for (const b of box) {
@@ -184,6 +187,10 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
     document.getElementById("scrollbox").scrollTo({top: y - y1, behavior: 'smooth'})
   }
 
+  const simplify = async(oldtext) => {
+    text = await simplifyPDF(oldtext)
+    setTextItems(renderText())
+  }
 
   const checkScroll = (timer) => {
     if (timer != -1){
@@ -205,36 +212,38 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
         setLastHeader(sections[sections.length - 1])
   }
 
+
     //COMPONENT
     return (
 
 
         <>
         <div className="row-auto">
-          <div className='pt-32 pb-0 md:pt-40 md:pb-0'>
+          <div className='pt-24 pb-0 md:pt-24 md:pb-0'>
             {/* Side Buttons */}
             <div className="max-w-sm mx-auto">
               <form>
                 <div className="max-w-3xl mx-auto text-center">
-                    <h3 className="h3 mb-4" data-aos="fade-up">Sections</h3>
+                    <h3 className="h4 mb-4" data-aos="fade-up">Sections</h3>
                 </div>
-                <div className="flex flex-wrap -mx-3 mt-6 ml-2 mb-8">                    <div style={divstyle2} id="section-scrollbox">
+                <div className="flex flex-wrap -mx-2 mt-6 ml-2 mb-8">                    
+                    <div style={divstyle2} id="section-scrollbox">
                         {sections.map((label, index) => (
-                            <div className="w-full px-3 mb-7">
-                            <button id = {`${label}${index}button`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {() => scrollTo(`${label}${index}Header`)}>{label}</button>
+                            <div className="w-full px-3 mb-3">
+                            <button id = {`${label}${index}button`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2" onClick = {() => scrollTo(`${label}${index}Header`)}>{label}</button>
                             </div>
                         ))}
                     </div>
                 </div>
                 <div className="flex flex-wrap -mx-3 mt-0 ml-2">
                     <div className="max-w-3xl mx-auto text-center">
-                        <h3 className="h3 mb-4" data-aos="fade-up">Tools</h3>
+                        <h3 className="h4 mb-4" data-aos="fade-up">Tools</h3>
                     </div>
-                    <div className="w-full px-3 mb-7">
-                        <button id = {`Simplify`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full">Simplify</button>
+                    <div className="w-full px-3 mb-3">
+                        <button onClick={() => simplify(text)} id = {`Simplify`} type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">Simplify</button>
                     </div>
-                    <div className="w-full px-3 mb-7">
-                        <button id = {`Define`}type = "button" className={defining > 0 ? ("btn text-gray-900 bg-purple-700 hover:bg-purple-800 w-full") : ("btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full")}
+                    <div className="w-full px-3 mb-3">
+                        <button id = {`Define`}type = "button" className={defining > 0 ? ("btn text-gray-900 bg-purple-700 hover:bg-purple-800 w-full tracking-wider py-2") : ("btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2")}
                             onClick = {toggleDefine}>{defining > 0 ? ("Click a Word to Define") : ("Define")}</button>
                     </div>
                     {/*Display the text box based on state. */}
@@ -271,13 +280,13 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                         {def.split('\n').map(e => <p>{e}</p>)}
                     </div>
                     )}
-                    <div className="w-full px-3 mb-7">
-                        <button id = {`Upload`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full" onClick = {uploadFile}>Upload File</button>
+                    <div className="w-full px-3 mb-3">
+                        <button id = {`Upload`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2" onClick = {uploadFile}>Upload File</button>
                     </div>
-                    <div className = "w-full px-3 mb-7 grid grid-cols-2 gap-4">
-                        <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" 
+                    <div className = "w-full px-3 mb-3 grid grid-cols-2 gap-4">
+                        <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0 tracking-wider py-2" 
                             onClick = {increaseFontSize}>Font (+)</button>
-                        <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" 
+                        <button id = {`Decrease Font Size`}type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0 tracking-wider py-2" 
                             onClick = {decreaseFontSize}>Font (-)</button>
                     </div>  
                 </div>
@@ -286,7 +295,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
           </div>
         </div>
         <div className = "row-auto col-span-4">
-          <div className="pt-32 pb-0 md:pt-32 md:pb-0">
+          <div className="pt-8 pb-0 md:pt-6 md:pb-0">
             <div className="max-w-full mx-auto text-center pb-0 md:pb-0">
             <section>
                 <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -295,12 +304,12 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                     <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-anchor="[data-aos-id-blocks]">
                     <h4 className="h4 mb-2" id='Heading'>{lastHeader}</h4>
                     <div style={divstyle} id="scrollbox" onScroll={() => {timer = checkScroll(timer)}}>
-                        {renderText()}
+                        {textItems}
                     </div>
                     <div className = "w-full pt-4 px-3 mb-7  flex justify-center items-center space-x-4">
-                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0" 
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0 tracking-wider py-2" 
                         onClick={scrollUp}>Scroll Up</button>
-                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0" 
+                        <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0 tracking-wider py-2" 
                         onClick={scrollDown}>Scroll Down</button>
                     </div>
                     </div>
