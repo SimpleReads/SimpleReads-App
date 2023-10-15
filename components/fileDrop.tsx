@@ -97,7 +97,16 @@ export default function FileDrop({childToParent}) {
                   ))} 
                 </ul>
                 ) : (
-                  status
+                  <div>
+                    {status === "LOADING" ? (
+                      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <CircularProgress />
+                        <p>Loading</p>
+                      </Box>
+                    ) : (
+                      status
+                    )}
+                  </div>
                 )}
                   
                 </div>
