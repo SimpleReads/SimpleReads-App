@@ -337,7 +337,7 @@ export default function ScrollBox({parentToChild, childToParent, uploadFile}) {
                     <div className="relative flex flex-col items-center" data-aos="fade-up" data-aos-anchor="[data-aos-id-blocks]">
                     <h4 className="h4 mb-2" id='Heading'>{lastHeader}</h4>
                     <div style={divstyle} id="scrollbox" onScroll={() => {timer = checkScroll(timer)}}>
-                        {renderText()}
+                        {textItems}
                     </div>
                     <div className = "w-full pt-4 px-3 mb-7  flex justify-center items-center space-x-4">
                         <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0 tracking-wider py-2" 
