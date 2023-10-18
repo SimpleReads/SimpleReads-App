@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import MobileMenu from './mobile-menu'
-import PopOutTextBox from '../popOutTextBox'
 
 /**
  * Creates the header component that appears on every page of the site. It contains the site logo and a home button that both 
