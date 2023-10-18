@@ -1,10 +1,9 @@
 'use client'
-
 import { DragEvent, useState } from 'react';
 import readPDF from '@/app/lib/pdfApi'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
-
+import { handleDrop } from '@/app/lib/handleDrop';
 /**
  * A user interface box that accepts dropped files. When a file is uploaded, its name is displayed in a list. 
  * The user is then prompted to either confirm or remove their uploaded file.
@@ -30,39 +29,6 @@ export default function FileDrop({childToParent}) {
     setIsOver(false);
   };
 
-  // Function to handle when a file is dropped. Prevents default behaviour of drop events, updates components states and triggrs process of reading and displaying content of dropped PDF files
-  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-    setIsOver(false);
-    setStatus("LOADING")
-
-    // Fetch the files
-    const droppedFiles = Array.from(event.dataTransfer.files);
-    setFiles(droppedFiles)
-
-    // Use FileReader to read file content
-    droppedFiles.forEach((file) => {
-        const reader = new FileReader();
-        
-        reader.onloadend = () => {
-            if (reader.result instanceof ArrayBuffer) {
-                let arr = new Uint8Array(reader.result);
-                let blob = new Blob([arr]);
-                updateText(file);
-            } else {
-                console.error('Expected ArrayBuffer but got string');
-            }
-        };
-
-        reader.onerror = () => {
-            console.error('There was an issue reading the file.');
-        };
-
-        reader.readAsArrayBuffer(file);
-        return reader;
-    });
-  };
-
   // Function that take file and read content. Updates setInfo with pdf contxt. Set uploadpff to true
   const updateText = async(file) => {
       let info = await readPDF(file)
@@ -79,7 +45,7 @@ export default function FileDrop({childToParent}) {
               <div
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
+                onDrop={(e) => handleDrop(e, setIsOver, setStatus, setFiles, updateText)}
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
@@ -114,9 +80,7 @@ export default function FileDrop({childToParent}) {
                     {uploaded && (
                       <section>
                         <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                          type = "button" onClick = {() => childToParent(info)}>
-                          CONFIRM
-                        </button>
+                          type = "button" onClick = {() => childToParent(info)}>CONFIRM</button>
                         
                         <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
                           type = "button" onClick = {() => {setUploaded(false); setStatus("Drag and drop a pdf file here")}}>
