@@ -2,6 +2,9 @@
 
 SimpleReads aims to develop a Large Learning Model (LLM) with an intuitive interface designed to make complex research papers more accessible for individuals with various communication impairments, including aphasia. Leveraging advanced NLP techniques and inclusive design, the system allows users to upload documents in PDF or DOCX formats and receive translations into more easily digestible language and visuals, based on current research on communication impairments.
 
+## Message to the Tutors:
+When running the website on your localhost, PLEASE DO NOT TURN THE MODEL ON. Simplification works for a specifically formatted PDF file, but the model costs us money to run. It will be running for the EXPO and a live demo will be shown there. If the model is turned on and is not turned off, it can cost the group hundreds of dollars. We kindly ask you to refrain from turning on the model when testing our product.
+
 Core Features:
 - Simplifies Complex Text
 - Provides Dictionary Definitions 
@@ -40,6 +43,7 @@ Editing the following directories will auto update the website:
 ### Flask
 
 Our application uses Flask as the web framework, and we provide API endpoints for fetching and manipulating research papers. Endpoint routes are accessible on localhost:3001.
+
 
 #### Common Response Format
 
