@@ -5,11 +5,12 @@ import CircularProgress from '@mui/material/CircularProgress'
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Box from '@mui/material/Box'
 import { handleDrop } from '@/app/lib/handleDrop';
+import { fileDropStyle, fileDropStyleHover } from './style';
 /**
  * A user interface box that accepts dropped files. When a file is uploaded, its name is displayed in a list. 
  * The user is then prompted to either confirm or remove their uploaded file.
  * @param childToParent is where the uploaded file information is sent 
- * @returns a rendered JSX Box Component that accepts dropped files
+ * @return a rendered JSX Box Component that accepts dropped files
  */
 export default function FileDrop({childToParent}) {
   // State variables to handle the components behaviour 
@@ -48,17 +49,7 @@ export default function FileDrop({childToParent}) {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, setIsOver, setStatus, setFiles, updateText)}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '400px',
-                  width: '800px',
-                  border: '1px dotted',
-                  backgroundColor: isOver ? 'lightgray' : 'white',
-                  fontSize: '35px',
-                  fontWeight:'400'
-                }}>
+                style={isOver ? fileDropStyleHover : fileDropStyle}>
               
               {uploaded ? (
                 <ul> {/*  Display the name of the pdf */}
@@ -73,12 +64,10 @@ export default function FileDrop({childToParent}) {
                         <CircularProgress sx={{width: '120', height: '120'}} /> <p>Loading</p>
                       </Box>
                     ) : (
-                      <> {/* Displays the file upload icon next to "Drag and drop a pdf file here" text */}
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <FileUploadIcon style={{ fontSize: '40px', marginRight: '10px' }} />
                           <span>Drag and drop a pdf file here</span>
                         </div>
-                      </>
                     )}
                   </div>
                 )}
@@ -89,11 +78,11 @@ export default function FileDrop({childToParent}) {
                   <section style = {{marginTop: '10px'}}> 
                     <div style= {{display: 'flex', justifyContent: 'space-evenly', marginBottom: '10px'}}>
                       <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                        type = "button" style={{ fontSize: '25px', padding: '15px 25px', fontWeight:'400' }} onClick = {() => {setUploaded(false); setStatus("Drag and drop a pdf file here")}}>
+                        type = "button" style={{borderRadius: '5px',  fontSize: '25px', padding: '15px 25px', fontWeight:'400' }} onClick = {() => {setUploaded(false); setStatus("Drag and drop a pdf file here")}}>
                           REMOVE
                       </button>
                       <button className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" 
-                        type = "button" style={{ fontSize: '25px', padding: '15px 25px', fontWeight:'400' }} onClick = {() => childToParent(info)}>
+                        type = "button" style={{borderRadius: '5px',  fontSize: '25px', padding: '15px 25px', fontWeight:'400' }} onClick = {() => childToParent(info)}>
                           CONFIRM
                       </button>     
                     </div>        
