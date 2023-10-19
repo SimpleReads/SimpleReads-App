@@ -1,19 +1,20 @@
+import ReadHub from '@/components/readHub';
+
+// Metadata
 export const metadata = {
   title: 'SimpleReads',
   description: 'An Aphasia AI Reading Support',
 }
 
-import Scrollbox from '@/components/ScrollBox2'
-import ReadHub from '@/components/readHub';
-
+/**
+ * Homepage Component
+ * @return homepage component
+ */
 export default function Home() {
-    const buttons = ["Footnotes", "Commentary", "Commentary", "References", "BioMedcentral"];
-    
-    
   return (
     <section className="relative">
       <div className="grid grid-flow-col gap-4">
-        <ReadHub/>
+        <ReadHub/> {/* Render the ReadHub component */}
       </div>
     </section>
   )

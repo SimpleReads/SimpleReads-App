@@ -13,7 +13,7 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-20">
           <> {/* Home button */}
-            <div className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-500" style={{ borderRadius: '5px', fontWeight:'400', fontSize: '25px', display: 'flex', alignItems: 'center' }}>
+            <div className="btn-sm text-gray-900 bg-purple-600 hover:bg-purple-500" style={{ marginLeft: '50px', borderRadius: '5px', fontWeight:'400', fontSize: '25px', display: 'flex', alignItems: 'center' }}>
               <Link href="/" > 
                 <HomeIcon style={{ fontSize: '35px'}} />
                 Home 

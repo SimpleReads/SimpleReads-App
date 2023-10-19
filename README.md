@@ -40,23 +40,29 @@ Editing the following directories will auto update the website:
 + db         - datebase
 + flask_app  - 
 
-RILEY - I DONT KNOW IF THE FOLLOWING IS NEEDED 
-
-{{{ THIS STUFF
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-}}}
-
-### ~ API Endpoints
-
 ### Flask
 
 Our application uses Flask as the web framework, and we provide API endpoints for fetching and manipulating research papers. Endpoint routes are accessible on localhost:3001.
+
+
+#### Common Response Format
+
+All API responses follow a common format:
+
+```json
+{
+  "data": "Response data here",
+  "status": 200,
+  "ok": true
+}
+```
+
+- data: Contains the requested data or a relevant error message.
+- status: HTTP status code.
+- ok: Boolean indicating whether the operation was successful (true) or not (false).
+
+## Support
+### ~ Debugging
 
 ### Windows
 
@@ -64,18 +70,11 @@ If you get an error saying that the port is already in use, you can kill the pro
 
 - ```netstat -ano | findstr :3000``` to find the PID of the process running on port 3000
 - ```taskkill /PID <PID> /F``` to kill the process e.g. ```taskkill /PID 9140 /F```
-Where to ge hel
 
 ## Terms and License
 
-+ Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html).
++ Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html)
 + Copyright 2023 [Cruip](https://cruip.com/).
-
-## Credits
-
-+ QUT All-Stars
-+ Dr Peter Worthy
-+ Jaleel
 
 ## About Us
 We're a group of university students who want to make a difference in the world. 
