@@ -2,6 +2,7 @@
 import * as React from 'react'
 import getDefs from '@/app/lib/getDefs'
 import simplifyPDF from '@/app/lib/simplifyPdf'
+import simplifyGPT4 from '@/app/lib/simplifyGPT4'
 import SideBar from './SideBar'
 import ScrollBox from './ScrollBox'
 import ReadArea from './ReadArea'
@@ -52,14 +53,32 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
     }
 
     const scrollTo = (id) => {
-        document.getElementById("scrollbox").scrollTo(0, 0)
-        let y = document.getElementById(id).getBoundingClientRect().y
-        let y1 = document.getElementById("scrollbox").getBoundingClientRect().y
-        document.getElementById("scrollbox").scrollTo({top: y - y1, behavior: 'smooth'})
+        const scrollbox = document.getElementById("scrollbox");
+
+        // Get current scroll position
+        const currentScrollTop = scrollbox.scrollTop;
+
+        // Calculate target element's Y position
+        const y = document.getElementById(id).getBoundingClientRect().y;
+
+        // Calculate scrollbox's Y position
+        const y1 = scrollbox.getBoundingClientRect().y;
+
+        // Adjust for the current scroll position and perform the smooth scroll
+        scrollbox.scrollTo({
+            top: currentScrollTop + y - y1,
+            behavior: 'smooth'
+        });
     }
+
 
     const simplify = async(oldtext) => {
         newtext(await simplifyPDF(oldtext))
+    }
+
+    const gpt4 = async(oldtext) => {
+        console.log("GPT4")
+        newtext(await simplifyGPT4(oldtext))
     }
 
     const checkScroll = (timer) => {
@@ -84,7 +103,7 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
     //COMPONENT
     return (
         <>
-        <SideBar sections={sections} triggerSimplify={() => simplify(text)} toggleDefine={toggleDefine} 
+        <SideBar sections={sections} triggerSimplify={() => simplify(text)} triggerGPT4={() => gpt4(text)} toggleDefine={toggleDefine} 
             changeFont={changeFontSize} uploadFile={uploadFile2} scrollTo={scrollTo} def={def}
         />
         <ReadArea headings={sections} text={text} scroll={checkScroll} timer={timer} searchWord={searchWord} 
