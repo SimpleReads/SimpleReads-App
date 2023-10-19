@@ -7,7 +7,7 @@ import ReadPage from './ScrollBox2'
 /**
  * The parent of fileDrop.tsx and the child to ScrollBox, this component manages the state of uploaded files and displays the
  * 'FileDrop' component for file upload or 'ScrollBox' component for displaying text and headers.
- * @returns a component that either displays 'FileDrop' or 'ScrollBox' componenent pending 'uploadcheck'
+ * @return a component that either displays 'FileDrop' or 'ScrollBox' componenent pending 'uploadcheck'
  */
 export default function ReadHub() {
     // State variables to handle the components behaviour 

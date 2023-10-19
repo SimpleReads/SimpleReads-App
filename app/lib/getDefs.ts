@@ -1,8 +1,16 @@
 import axios from 'axios'
 
-
+/**
+ * Retrieves word definitions from an online dictionary API that user requests.
+ *
+ * @param numOfUsages - The max number of usages to retrieve for the word.
+ * @param numOfDefs - The max number of definitions to retrieve for each usage.
+ * @param word - The word for which definitions are to be fetched.
+ * @returns A Promise that resolves to a formatted string containing definitions or an error message.
+ */
 export default function getDefs(numOfUsages: number, numOfDefs: number, word: string){
 
+    // Function which fetches word information from the dictionary API
     async function getInfo(word: string){
         return new Promise(function (resolve, reject) {
             axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
@@ -16,6 +24,7 @@ export default function getDefs(numOfUsages: number, numOfDefs: number, word: st
         });
     }
 
+    // Function which formats retrieved definitions
     async function formatDefs(numOfUsages: number, numOfDefs: number, info: any, word: string) {
         let i = await info
         let content = i[1]
@@ -39,24 +48,19 @@ export default function getDefs(numOfUsages: number, numOfDefs: number, word: st
         else {
             str = content
         }
-        
-        //console.log(str);
         return str;
     }
 
+    // Remove any non-alphabetical characters at the end of the word
     let newword = word
     let finalChar = word[word.length - 1]
     if (!finalChar.match(/[a-zA-Z]/)) {
         newword = word.substring(0, word.length - 1)
     }
 
+    // Get the word information and format definitions
     let info = getInfo(newword);
     let str = formatDefs(numOfUsages, numOfDefs, info, word);
-    //onsole.log(str);
+    
     return str;
 }
-
-
-
-
-
