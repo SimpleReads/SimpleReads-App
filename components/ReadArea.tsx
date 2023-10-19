@@ -22,12 +22,6 @@ export default function ReadArea({headings, text, scroll, timer, searchWord, las
                                     <h4 className="h4 mb-2" id='Heading' style={{fontSize:'60'}}>{lastHeader}</h4> {/* Shows the latest header that the read area is up too */}
                                     <ScrollBox headings={headings} text={text} scroll={scroll} timer={timer} searchWord={searchWord}/> {/* The component that stores the tet that the pdf contained */}
                                     <div className = "w-full pt-4 px-3 mb-7  flex justify-center items-center space-x-4"> {/* Button to scroll up in the read area */}
-                                        <button style={{borderRadius: '5px', fontSize: '25px', fontWeight:'400'}} className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0 tracking-wider py-2" onClick={() => scroll(true)}>
-                                            Scroll Up
-                                        </button> {/* Button to scroll down in the read area */}
-                                        <button style={{borderRadius: '5px', fontSize: '25px', fontWeight:'400'}} className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-1/4 sm:mb-0 tracking-wider py-2" onClick={() => scroll(false)}>
-                                            Scroll Down
-                                        </button>
                                     </div>
                                 </div>
                             </div>
