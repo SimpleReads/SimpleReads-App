@@ -3,9 +3,9 @@
 import Link from 'next/link'
 
 /**
- * A cointainter that houses a few components on the homepage: title, smnall dscription of what the website is about, 
- * and a pdf upload butto that links to a page where a pdf can be uploaded to.
- * @returns a container that holds the homepage title, small description and upload button
+ * A container that houses a few components on the homepage: title, small description of what the website is about, 
+ * and a pdf upload button that links to a page where a pdf can be uploaded to.
+ * @return a container that holds the homepage title, small description and upload button
  */
 export default function Hero() {
   return (

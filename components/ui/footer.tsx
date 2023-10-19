@@ -2,7 +2,7 @@ import React from 'react'
 
 /**
  * Creates the footer component that appears on every page of the site. It contains a copyright message
- * @returns Footer component
+ * @return Footer component
  */
 export default function Footer() {
   return (
