@@ -13,26 +13,20 @@ export default function ReadHub() {
     // State variables to handle the components behaviour 
     const [uploadCheck, setUploadCheck] = useState<number>(0)
     const [text, setText] = useState<string[]>([])
-    const [newText, setNewText] = useState<number>(0)
-    const [headerCheck, setHeaderCheck] = useState<number>(0)
     const [headers, setHeaders] = useState<string[]>([])
 
-    // Function to handle a file upload and set text
+    // Function to handle a file upload and format text
     const upload = (info) => {
         setUploadCheck(1)
         formatText(info)
     }
 
+    // Function to handle to set text
     const uploadText = (text) => {
         setText(text)
-        setNewText(1)
-    }
-
-    const getText = () => {
-        setNewText(0)
-        return [text, newText]
     }
     
+    // Function to format text into a required format
     const formatText = (rawText: string) => {
         // Remove form feed characters
         rawText = rawText.replace(/\f/g, "");
@@ -56,26 +50,15 @@ export default function ReadHub() {
         setText(text);
     }
     
-
-    // Function to handle header upload and set headers
-    const uploadHeaders = (headers) => {
-        setHeaderCheck(1)
-        setHeaders(headers)
-    }
-
     // Function to reset the upload check state
     const uploadFile = () => {
         console.log("A")
         setUploadCheck(0)
     }
 
-    // When life gives you lemons, make orange juice and leave the world wondering how
-    const meh = () => {
-    }
-
     return (
         <>
-            {uploadCheck <= 0 ? (
+            {uploadCheck <= 0 ? ( 
                 // Display the FileDrop Component for File Upload
                 <FileDrop childToParent={upload}/>
             ) : (

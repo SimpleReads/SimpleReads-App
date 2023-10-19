@@ -18,13 +18,13 @@ export default function Hero() {
           An AI Reading Support Tool
         </h3>
         {/* Adds a horizontal line between sub-title and small description */}
-        <hr className="bg-purple-600 mb-6" style={{height: '5px',}}></hr>
+        <hr className="bg-purple-600 mb-6" data-aos="fade-up" style={{height: '5px',}}></hr>
         <p className="text-xl text-gray-800 mb-8 max-w-sm mx-auto sm:max-w-none text-center" data-aos="fade-up" data-aos-delay="200"  style = {{fontWeight:'400', fontSize: '25px'}}>
           Offering support for Aphasia patients with research documents, novels, articles, and more.
         </p>
         
         <div data-aos="fade-up" data-aos-delay="400"> {/* Adds a button that links to the read page */}
-          <Link className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" href="/read" style={{ borderRadius: '20px', fontWeight:'400', fontSize: '25px'}}>
+          <Link className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" href="/read" style={{borderRadius: '20px', fontWeight:'400', fontSize: '25px'}}>
             Click Here to Upload PDF
           </Link>
         </div>
