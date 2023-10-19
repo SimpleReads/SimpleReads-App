@@ -53,11 +53,24 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
     }
 
     const scrollTo = (id) => {
-        document.getElementById("scrollbox").scrollTo(0, 0)
-        let y = document.getElementById(id).getBoundingClientRect().y
-        let y1 = document.getElementById("scrollbox").getBoundingClientRect().y
-        document.getElementById("scrollbox").scrollTo({top: y - y1, behavior: 'smooth'})
+        const scrollbox = document.getElementById("scrollbox");
+
+        // Get current scroll position
+        const currentScrollTop = scrollbox.scrollTop;
+
+        // Calculate target element's Y position
+        const y = document.getElementById(id).getBoundingClientRect().y;
+
+        // Calculate scrollbox's Y position
+        const y1 = scrollbox.getBoundingClientRect().y;
+
+        // Adjust for the current scroll position and perform the smooth scroll
+        scrollbox.scrollTo({
+            top: currentScrollTop + y - y1,
+            behavior: 'smooth'
+        });
     }
+
 
     const simplify = async(oldtext) => {
         newtext(await simplifyPDF(oldtext))
