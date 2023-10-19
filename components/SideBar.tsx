@@ -1,7 +1,7 @@
 import * as React from 'react'
 import PopUpBox from './popUpBox';
 
-export default function SideBar({sections, triggerSimplify, toggleDefine, changeFont, uploadFile, scrollTo, def}) {
+export default function SideBar({sections, triggerSimplify, triggerGPT4, toggleDefine, changeFont, uploadFile, scrollTo, def}) {
     const [defining, setDefining] = React.useState<number>(0)
     const [textBoxLayout, setTextBoxLayout] = React.useState({ x: 0, y: 0 });
     const [dragging, setDragging] = React.useState(false);
@@ -79,7 +79,7 @@ export default function SideBar({sections, triggerSimplify, toggleDefine, change
                     {/*RILEY BUTTON TO PLAY WITH */}
 
                     <div className="w-full px-3 mb-3">
-                        <button onClick={() => triggerSimplify()} id = {`Simplify2.0`} type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">Simplify2.0</button>
+                        <button onClick={() => triggerGPT4()} id = {`Simplify2.0`} type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">Simplify2.0</button>
                     </div>
 
 
