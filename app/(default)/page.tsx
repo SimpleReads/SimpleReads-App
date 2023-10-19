@@ -4,9 +4,6 @@ export const metadata = {
 }
 
 import Hero from '@/components/hero'
-import Features from '@/components/features'
-import Newsletter from '@/components/newsletter'
-import Testimonials from '@/components/testimonials'
 
 /**
  * Home Page Layout. 
