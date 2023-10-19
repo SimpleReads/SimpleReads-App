@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { styled } from '@mui/material/styles';
 
 /**
  * A cointainter that houses a few components on the homepage: title, smnall dscription of what the website is about, 
@@ -9,42 +8,25 @@ import { styled } from '@mui/material/styles';
  * @returns a container that holds the homepage title, small description and upload button
  */
 export default function Hero() {
-
-  // Style for the upload button
-  const VisuallyHiddenInput = styled('input')({
-    clip: 'rect(0 0 0 0)',
-    clipPath: 'inset(50%)',
-    height: 1,
-    overflow: 'hidden',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    whiteSpace: 'nowrap',
-    width: 1,
-  });
-
   return (
-    <section>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
-        <div className="relative pt-32 pb-10 md:pt-40 md:pb-16">
-          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="h1 mb-4 text-6xl" data-aos="fade-up"> {/* Title Text */}
-              SimpleReads
-            </h1>
-            <h3 className="h3 mb-12" data-aos="fade-up"> {/* Sub title text */}
-              An AI Reading Support Tool</h3>
-            <hr className="h-px my-8 mb-12 border-0 dark:bg-purple-700"></hr>
-            <p className="text-xl text-gray-800 mb-8" data-aos="fade-up" data-aos-delay="200"> {/* Small Description */}
-              Offering support for Aphasia patients with research documents, novels, articles, and more.
-            </p>
-            <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
-              <div data-aos="fade-up" data-aos-delay="400"> {/* Button that links to /read page */}
-                <Link className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" href="/read">
-                  Click Here to Upload PDF
-                </Link> 
-              </div>
-            </div>
-          </div>
+    <section className="max-w-6xl mx-auto px-4 sm:px-6 relative pt-32 pb-10 md:pt-40 md:pb-16">
+      <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
+        <h1 className="h1 mb-4" data-aos="fade-up" style = {{fontSize: '65px'}}> {/* Adds Title */}
+          SimpleReads
+        </h1>
+        <h3 className="h3 mb-8" data-aos="fade-up" style = {{fontSize: '40px'}}> {/* Adds a sub-title below title */}
+          An AI Reading Support Tool
+        </h3>
+        {/* Adds a horizontal line between sub-title and small description */}
+        <hr className="bg-purple-600 mb-6" style={{height: '5px',}}></hr>
+        <p className="text-xl text-gray-800 mb-8 max-w-sm mx-auto sm:max-w-none text-center" data-aos="fade-up" data-aos-delay="200"  style = {{fontWeight:'400', fontSize: '25px'}}>
+          Offering support for Aphasia patients with research documents, novels, articles, and more.
+        </p>
+        
+        <div data-aos="fade-up" data-aos-delay="400"> {/* Adds a button that links to the read page */}
+          <Link className="btn text-gray-800 bg-purple-600 hover:bg-purple-500 w-full mb-4 sm:w-auto sm:mb-0" href="/read" style={{ borderRadius: '20px', fontWeight:'400', fontSize: '25px'}}>
+            Click Here to Upload PDF
+          </Link>
         </div>
       </div>
     </section>
