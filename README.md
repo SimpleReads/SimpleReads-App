@@ -16,16 +16,10 @@ Examples of expected outcomes
 ## Installation
 This is a [npm.js](https://npmjs.com/) bootstrapped project.
 
-### ~ Cloning Remote Branches -THIS IS FOR US. SHOULD BE REMOVED LATER
-
-To get the latest version of the project, run the following commands:
-```bash
-git fetch origin
-
-git checkout -b new-branch origin/new-branch 
-#e.g. git checkout -b staging origin/staging
-```
 ### ~ Getting Started
+
+Ranme the env_template.env to .env.
+
 While inside the SimpleReads-App directory:
 ```bash 
 npm install #to install dependencies
@@ -38,12 +32,10 @@ Editing the following directories will auto update the website:
 + app        - layout and stuff of the website
 + components - constituent elements of the website
 + db         - datebase
-+ flask_app  - 
 
 ### Flask
 
-Our application uses Flask as the web framework, and we provide API endpoints for fetching and manipulating research papers. Endpoint routes are accessible on localhost:3001.
-
+Our application uses Flask as the web framework, and we provide API endpoints for fetching and manipulating research papers.
 
 #### Common Response Format
 
