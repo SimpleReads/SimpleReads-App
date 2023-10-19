@@ -58,52 +58,6 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 Our application uses Flask as the web framework, and we provide API endpoints for fetching and manipulating research papers. Endpoint routes are accessible on localhost:3001.
 
-### MongoDB
-
-Our application uses MongoDB as the database backend, and we provide API endpoints for fetching and manipulating research papers.
-
-#### Fetch a Specific Research Paper
-
-- **Endpoint**: GET /api/papers/GET/:id
-- **Description**: Fetches a specific research paper from the database using its unique identifier.
-- **Parameters**:
-  - id: The unique identifier of the research paper.
-- **Example Usage in Postman**:
-  ```http://localhost:3000/api/papers/GET/{paper_id}```
-- **Response**:
-  - 200 OK: Returns the paper object if found.
-  - 404 NOT FOUND: If the paper with the specified ID does not exist.
-  - 500 INTERNAL SERVER ERROR: If there's a server error.
-
-#### Fetch All Research Papers
-
-- **Endpoint**: GET /api/papers/GET/
-- **Description**: Fetches all the research papers stored in the database.
-- **Example Usage in Postman**:
-  ```http://localhost:3000/api/papers/GET/```
-- **Response**:
-  - 200 OK: Returns an array of all paper objects.
-  - 500 INTERNAL SERVER ERROR: If there's a server error.
-
-#### Common Response Format
-
-All API responses follow a common format:
-
-```json
-{
-  "data": "Response data here",
-  "status": 200,
-  "ok": true
-}
-```
-
-- data: Contains the requested data or a relevant error message.
-- status: HTTP status code.
-- ok: Boolean indicating whether the operation was successful (true) or not (false).
-
-## Support
-### ~ Debugging
-
 ### Windows
 
 If you get an error saying that the port is already in use, you can kill the process using the following commands:
@@ -114,7 +68,7 @@ Where to ge hel
 
 ## Terms and License
 
-+ Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html). OKAY we should look at this if we want to make this project legit
++ Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html).
 + Copyright 2023 [Cruip](https://cruip.com/).
 
 ## Credits
