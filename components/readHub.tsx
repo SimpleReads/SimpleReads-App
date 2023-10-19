@@ -2,7 +2,7 @@
 
 import {useState} from 'react'
 import FileDrop from './fileDrop'
-import ScrollBox from './ScrollBox2'
+import ReadPage from './ScrollBox2'
 
 /**
  * The parent of fileDrop.tsx and the child to ScrollBox, this component manages the state of uploaded files and displays the
@@ -12,14 +12,45 @@ import ScrollBox from './ScrollBox2'
 export default function ReadHub() {
     // State variables to handle the components behaviour 
     const [uploadCheck, setUploadCheck] = useState<number>(0)
-    const [text, setText] = useState<string>("")
+    const [text, setText] = useState<string[]>([])
+    const [newText, setNewText] = useState<number>(0)
     const [headerCheck, setHeaderCheck] = useState<number>(0)
     const [headers, setHeaders] = useState<string[]>([])
 
     // Function to handle a file upload and set text
     const upload = (info) => {
         setUploadCheck(1)
-        setText(info)
+        formatText(info)
+    }
+
+    const uploadText = (text) => {
+        setText(text)
+        setNewText(1)
+    }
+
+    const getText = () => {
+        setNewText(0)
+        return [text, newText]
+    }
+    
+    const formatText = (rawText: string) => {
+        let sections = ["Preface"]
+        let text = []
+        let paragraph = ""
+        let splits = rawText.split('\n')
+        for (let i = 0; i < splits.length; i++) {
+            if ((splits[i].split(/( )/).length < 5) && (splits[i].charAt(0).match(/[0-9]/)) && (/^[.0-9A-Za-z\s]*$/.test(splits[i])) && (splits[i].length > 5)) {
+                text.push(paragraph)
+                sections.push(splits[i])
+                paragraph = ""
+            }
+            else {
+                paragraph += `${splits[i]} `
+            }
+        }
+        text.push(paragraph)
+        setHeaders(sections)
+        setText(text)
     }
 
     // Function to handle header upload and set headers
@@ -30,6 +61,7 @@ export default function ReadHub() {
 
     // Function to reset the upload check state
     const uploadFile = () => {
+        console.log("A")
         setUploadCheck(0)
     }
 
@@ -44,7 +76,7 @@ export default function ReadHub() {
                 <FileDrop childToParent={upload}/>
             ) : (
                 // Display the ScrollBox component with text and header handling
-                <ScrollBox parentToChild={text} childToParent={headerCheck == 0 ? (uploadHeaders) : (meh)} uploadFile = {uploadFile}/>
+                <ReadPage uploadFile2 = {uploadFile} newtext={uploadText} currentText={text} headers={headers}/>
             )}
         </>
     )
