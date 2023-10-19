@@ -34,24 +34,28 @@ export default function ReadHub() {
     }
     
     const formatText = (rawText: string) => {
-        let sections = ["Preface"]
-        let text = []
-        let paragraph = ""
-        let splits = rawText.split('\n')
+        // Remove form feed characters
+        rawText = rawText.replace(/\f/g, "");
+    
+        let sections = ["Preface"];
+        let text = [];
+        let paragraph = "";
+        let splits = rawText.split('\n');
         for (let i = 0; i < splits.length; i++) {
             if ((splits[i].split(/( )/).length < 5) && (splits[i].charAt(0).match(/[0-9]/)) && (/^[.0-9A-Za-z\s]*$/.test(splits[i])) && (splits[i].length > 5)) {
-                text.push(paragraph)
-                sections.push(splits[i])
-                paragraph = ""
+                text.push(paragraph);
+                sections.push(splits[i]);
+                paragraph = "";
             }
             else {
-                paragraph += `${splits[i]} `
+                paragraph += `${splits[i]} `;
             }
         }
-        text.push(paragraph)
-        setHeaders(sections)
-        setText(text)
+        text.push(paragraph);
+        setHeaders(sections);
+        setText(text);
     }
+    
 
     // Function to handle header upload and set headers
     const uploadHeaders = (headers) => {
