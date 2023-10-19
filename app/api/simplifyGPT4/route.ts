@@ -1,6 +1,8 @@
 import { NextRequest } from "next/server";
 import config from "@/app/config/config";
 
+export const maxDuration = 30;
+
 export async function POST(request: NextRequest) {
   // Logging the endpoint you're hitting can be useful for debugging.
   // Consider a more structured logger for production use.
