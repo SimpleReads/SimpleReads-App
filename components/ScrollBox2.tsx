@@ -2,6 +2,7 @@
 import * as React from 'react'
 import getDefs from '@/app/lib/getDefs'
 import simplifyPDF from '@/app/lib/simplifyPdf'
+import simplifyGPT4 from '@/app/lib/simplifyGPT4'
 import SideBar from './SideBar'
 import ScrollBox from './ScrollBox'
 import ReadArea from './ReadArea'
@@ -62,6 +63,11 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
         newtext(await simplifyPDF(oldtext))
     }
 
+    const gpt4 = async(oldtext) => {
+        console.log("GPT4")
+        newtext(await simplifyGPT4(oldtext))
+    }
+
     const checkScroll = (timer) => {
         if (timer != -1){
             clearTimeout(timer)
@@ -84,7 +90,7 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
     //COMPONENT
     return (
         <>
-        <SideBar sections={sections} triggerSimplify={() => simplify(text)} toggleDefine={toggleDefine} 
+        <SideBar sections={sections} triggerSimplify={() => simplify(text)} triggerGPT4={() => gpt4(text)} toggleDefine={toggleDefine} 
             changeFont={changeFontSize} uploadFile={uploadFile2} scrollTo={scrollTo} def={def}
         />
         <ReadArea headings={sections} text={text} scroll={checkScroll} timer={timer} searchWord={searchWord} 
