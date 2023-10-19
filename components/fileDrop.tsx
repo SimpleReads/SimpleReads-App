@@ -5,6 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import Box from '@mui/material/Box'
 import { handleDrop } from '@/app/lib/handleDrop';
+import { fileDropStyle, fileDropStyleHover } from './style';
 /**
  * A user interface box that accepts dropped files. When a file is uploaded, its name is displayed in a list. 
  * The user is then prompted to either confirm or remove their uploaded file.
@@ -48,18 +49,7 @@ export default function FileDrop({childToParent}) {
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, setIsOver, setStatus, setFiles, updateText)}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '400px',
-                  width: '800px',
-                  border: '1px dotted',
-                  backgroundColor: isOver ? 'lightgray' : 'white',
-                  fontSize: '35px',
-                  fontWeight:'400',
-                  borderRadius: '20px', 
-                }}>
+                style={isOver ? fileDropStyleHover : fileDropStyle}>
               
               {uploaded ? (
                 <ul> {/*  Display the name of the pdf */}
@@ -74,12 +64,10 @@ export default function FileDrop({childToParent}) {
                         <CircularProgress sx={{width: '120', height: '120'}} /> <p>Loading</p>
                       </Box>
                     ) : (
-                      <> {/* Displays the file upload icon next to "Drag and drop a pdf file here" text */}
                         <div style={{ display: 'flex', alignItems: 'center' }}>
                           <FileUploadIcon style={{ fontSize: '40px', marginRight: '10px' }} />
                           <span>Drag and drop a pdf file here</span>
                         </div>
-                      </>
                     )}
                   </div>
                 )}

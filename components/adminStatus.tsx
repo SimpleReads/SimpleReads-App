@@ -1,10 +1,10 @@
 import * as React from "react";
-import Link from 'next/link'
 
 export default function AdminStatusBar() {
-    
+    //Current status of the model
     const [status, setStatus] = React.useState<String>("Waiting");
 
+    //Updates the text to reflect the current status of the model
     const updateText = async (status: string, data?: any) => {
         console.log("status, data:", status, data);
         try {
@@ -41,15 +41,15 @@ export default function AdminStatusBar() {
         }
     };
 
-    const setOn = () => {
+    const setOn = () => { //Turn On
         updateText("START");
     }
 
-    const setOff = () => {
+    const setOff = () => { //Turn Off
         updateText("STOP");
     }
 
-    const onSubmit = e => {
+    const onSubmit = e => { //Sumbit text to the model to simplify
         e.preventDefault();
         const form = e.target;
         const formData = new FormData(form);
@@ -60,13 +60,11 @@ export default function AdminStatusBar() {
         updateText("simplifyText", data);
     }
     
-
+    //Element
     return (
         <section>
             <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
-                {/* Hero content */}
                 <div className="relative pt-32 pb-10 md:pt-40 md:pb-16">
-                    {/* Section header */}
                     <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
                         <h1 className="h1 mb-4" data-aos="fade-up">ADMIN TESTING PAGE</h1>
                         <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">

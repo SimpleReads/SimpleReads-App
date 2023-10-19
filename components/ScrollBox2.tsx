@@ -19,12 +19,10 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
     const [defining, setDefining] = React.useState<number>(0)
     const [def, setDef] = React.useState<string>();
     const [lastHeader, setLastHeader] = React.useState<string>();
-
     let text = currentText
     let sections = headers
     let timer = -1
 
-    // Function whichs define a given word by fetching its definitions.
     const searchWord = async (word) => {
         if (defining > 0) {
             console.log(word)
@@ -39,36 +37,21 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
         setDefining(val)
     }
 
-    // Function which changes the font size of the text displayed in the read area by the given value.
     const changeFontSize = (change: number) => {
         console.log(change)
         var box = Array.from(document.getElementsByClassName('scrollboxtext') as HTMLCollectionOf<HTMLElement>);
         for (const b of box) {
             var fontsize = parseFloat(window.getComputedStyle(b, null).getPropertyValue('font-size'));
-            if (fontsize < 79) {
-            b.style.fontSize = (fontsize + change) + 'px'
-            }
+            fontsize < 79 ? b.style.fontSize = (fontsize + change) + 'px' : null
         }
     }
 
-    // Function which scrolls to a specific section in the scrollbox.
     const scrollTo = (id) => {
         const scrollbox = document.getElementById("scrollbox");
-
-        // Get current scroll position
         const currentScrollTop = scrollbox.scrollTop;
-
-        // Calculate target element's Y position
-        const y = document.getElementById(id).getBoundingClientRect().y;
-
-        // Calculate scrollbox's Y position
-        const y1 = scrollbox.getBoundingClientRect().y;
-
-        // Adjust for the current scroll position and perform the smooth scroll
-        scrollbox.scrollTo({
-            top: currentScrollTop + y - y1,
-            behavior: 'smooth'
-        });
+        const targetY = document.getElementById(id).getBoundingClientRect().y;
+        const currentY = scrollbox.getBoundingClientRect().y;
+        scrollbox.scrollTo({top: currentScrollTop + targetY - currentY, behavior: 'smooth'});
     }
 
     // Function which simplifies the given text to a reduced form.
