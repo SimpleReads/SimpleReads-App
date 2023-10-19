@@ -2,8 +2,7 @@ import {headingStyle, divstyle, textstyle} from "./style"
 
 export default function ScrollBox({headings, text, scroll, timer, searchWord}) {
 
-    
-    // SCROLL BOX FUNCTIONS
+    //Generate the individual elements for all the spans and paragraphs/headers of the text
     const renderText = (sections, text) => {
         return(
         <>
@@ -22,7 +21,7 @@ export default function ScrollBox({headings, text, scroll, timer, searchWord}) {
         )
     }
 
-
+    //Return Generated Elements
     return (
         <div style={divstyle} id="scrollbox" onScroll={() => scroll(timer)}>
             {renderText(headings, text)}

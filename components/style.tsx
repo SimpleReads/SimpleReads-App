@@ -16,3 +16,29 @@ export const headingStyle = {
     scrollBehavior: 'smooth' as 'smooth',
     textAlign: 'left' as 'left',
 };
+
+export const fileDropStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '400px',
+    width: '800px',
+    border: '1px dotted',
+    backgroundColor: 'white',
+    fontSize: '35px',
+    fontWeight:'400',
+    borderRadius: '20px', 
+}
+
+export const fileDropStyleHover = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '400px',
+    width: '800px',
+    border: '1px dotted',
+    backgroundColor: 'lightgray',
+    fontSize: '35px',
+    fontWeight:'400',
+    borderRadius: '20px', 
+}
