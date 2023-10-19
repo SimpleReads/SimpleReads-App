@@ -37,50 +37,9 @@ Editing the following directories will auto update the website:
 + db         - datebase
 + flask_app  - 
 
-RILEY - I DONT KNOW IF THE FOLLOWING IS NEEDED 
-
-{{{ THIS STUFF
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-}}}
-
-### ~ API Endpoints
-
 ### Flask
 
 Our application uses Flask as the web framework, and we provide API endpoints for fetching and manipulating research papers. Endpoint routes are accessible on localhost:3001.
-
-### MongoDB
-
-Our application uses MongoDB as the database backend, and we provide API endpoints for fetching and manipulating research papers.
-
-#### Fetch a Specific Research Paper
-
-- **Endpoint**: GET /api/papers/GET/:id
-- **Description**: Fetches a specific research paper from the database using its unique identifier.
-- **Parameters**:
-  - id: The unique identifier of the research paper.
-- **Example Usage in Postman**:
-  ```http://localhost:3000/api/papers/GET/{paper_id}```
-- **Response**:
-  - 200 OK: Returns the paper object if found.
-  - 404 NOT FOUND: If the paper with the specified ID does not exist.
-  - 500 INTERNAL SERVER ERROR: If there's a server error.
-
-#### Fetch All Research Papers
-
-- **Endpoint**: GET /api/papers/GET/
-- **Description**: Fetches all the research papers stored in the database.
-- **Example Usage in Postman**:
-  ```http://localhost:3000/api/papers/GET/```
-- **Response**:
-  - 200 OK: Returns an array of all paper objects.
-  - 500 INTERNAL SERVER ERROR: If there's a server error.
 
 #### Common Response Format
 
@@ -107,18 +66,11 @@ If you get an error saying that the port is already in use, you can kill the pro
 
 - ```netstat -ano | findstr :3000``` to find the PID of the process running on port 3000
 - ```taskkill /PID <PID> /F``` to kill the process e.g. ```taskkill /PID 9140 /F```
-Where to ge hel
 
 ## Terms and License
 
-+ Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html). OKAY we should look at this if we want to make this project legit
++ Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html)
 + Copyright 2023 [Cruip](https://cruip.com/).
-
-## Credits
-
-+ QUT All-Stars
-+ Dr Peter Worthy?
-+ Juleel?
 
 ## About Us
 We're a group of university students who want to make a difference in the world. 
