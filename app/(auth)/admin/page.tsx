@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import AdminStausBar from '@/components/adminStatus';
+import AdminStausBar from '@/app/lib/adminStatus';
 
 /**
  * Admin page for admin level users to start and stop the model operations
@@ -19,9 +19,9 @@ const Admin = () => {
 
   return (
     <>
-    <div>
-      <AdminStausBar/>
-    </div>
+      <div>
+        <AdminStausBar />
+      </div>
     </>
   );
 };
