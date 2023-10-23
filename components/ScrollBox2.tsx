@@ -3,6 +3,7 @@ import * as React from 'react'
 import getDefs from '@/app/lib/getDefs'
 import simplifyPDF from '@/app/lib/simplifyPdf'
 import simplifyGPT4 from '@/app/lib/simplifyGPT4'
+import simplifyDotPoints from '@/app/lib/simplifyDotPoints'
 import SideBar from './SideBar'
 import ReadArea from './ReadArea'
 
@@ -65,6 +66,12 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
         newtext(await simplifyGPT4(oldtext))
     }
 
+    // Fuction which simplifies the given text using GPT-4.
+    const dotpoints = async(oldtext) => {
+        console.log("Dotpoints")
+        newtext(await simplifyDotPoints(oldtext))
+    }
+
     // Function which checks the scroll position and gets the last section header in view.
     const checkScroll = (timer) => {
         if (timer != -1){
@@ -89,7 +96,7 @@ export default function ReadPage({uploadFile2, newtext, currentText, headers}) {
 
     return (
         <> {/* Sidebar component call */}
-        <SideBar sections={sections} triggerSimplify={() => simplify(text)} triggerGPT4={() => gpt4(text)} toggleDefine={toggleDefine} 
+        <SideBar sections={sections} triggerSimplify={() => simplify(text)} triggerGPT4={() => gpt4(text)} triggerDotPoints={() => dotpoints(text)} toggleDefine={toggleDefine} 
             changeFont={changeFontSize} uploadFile={uploadFile2} scrollTo={scrollTo} def={def}
         /> {/* Read Area component call */}
         <ReadArea headings={sections} text={text} scroll={checkScroll} timer={timer} searchWord={searchWord} 
