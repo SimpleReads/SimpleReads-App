@@ -11,7 +11,7 @@ import PopUpBox from './popUpBox';
  * @param {function} uploadFile - Function to upload a file.
  * @param {string} def - Word definitions.
  */
-export default function SideBar({sections, triggerSimplify, triggerGPT4, toggleDefine, changeFont, uploadFile, scrollTo, def}) {
+export default function SideBar({sections, triggerSimplify, triggerGPT4, triggerDotPoints, toggleDefine, changeFont, uploadFile, scrollTo, def}) {
     // State variables to handle the components behaviour 
     const [defining, setDefining] = React.useState<number>(0)
 
@@ -49,13 +49,17 @@ export default function SideBar({sections, triggerSimplify, triggerGPT4, toggleD
                     </div>
                     <div className="w-full px-3 mb-3"> {/* Button for Lama Model Simplification */}
                         <button style={{borderRadius: '5px', fontSize: '25px', fontWeight:'400'}} onClick={() => triggerSimplify()} id = {`Simplify`} type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">
-                            Simplify (basic)
+                            Simplify (Basic)
                         </button>
                     </div>
-
                     <div className="w-full px-3 mb-3"> {/* Button for Chat GPT Simplification */}
                         <button style={{borderRadius: '5px', fontSize: '25px', fontWeight:'400'}} onClick={() => triggerGPT4()} id = {`Simplify2.0`} type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">
-                            Simplify (advanced)
+                            Simplify (Advanced)
+                        </button>
+                    </div>
+                    <div className="w-full px-3 mb-3"> {/* Button for Chat GPT Dot Point Simplification */}
+                        <button style={{borderRadius: '5px', fontSize: '25px', fontWeight:'400'}} onClick={() => triggerDotPoints()} id = {`Simplify Dotpoints`} type = "button" className="btn text-gray-900 bg-purple-600 hover:bg-purple-700 w-full tracking-wider py-2">
+                            Simplify (Dot Points)
                         </button>
                     </div>
                     <div className="w-full px-3 mb-3"> {/* Button for definition function */}
