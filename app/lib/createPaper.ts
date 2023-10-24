@@ -2,8 +2,8 @@
 import { Section, ResearchPaper } from "@/app/types";
 import { ObjectId } from "mongodb";
 
-export const createPaper = (headers, text): ResearchPaper => {
-  console.log("Inside @/app/lib/createPaper.ts ");
+export const createPaper = (headers, text, paperId): ResearchPaper => {
+  console.log("Inside @/app/lib/createPaper.ts ", paperId);
   if (!headers || !text) {
     throw new Error("Invalid arguments passed to createPaper");
   }
@@ -19,8 +19,8 @@ export const createPaper = (headers, text): ResearchPaper => {
     text: text[index],
   }));
 
-  const paper: ResearchPaper = {
-    _id: new ObjectId("000000000000000000000000"),
+  const paper = {
+    _id: new ObjectId(paperId),
     sections,
   };
   return paper;

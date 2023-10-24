@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-import { ObjectId } from 'mongodb';
 import { ResearchPapersDB } from "@/app/lib/researchPapersDB";
 import Client from "@/app/lib/client";
 import { ResearchPaper } from "@/app/types";
 
-export async function GET(req) {
+export async function GET(req: Request) {
   console.log("Handling GET request");
   const client = await Client();
   const researchPapersDB = new ResearchPapersDB(client);
@@ -17,8 +16,18 @@ export async function GET(req) {
     return new Response('paperId is required', { status: 400 });
   }
 
-  const paper: ResearchPaper = await researchPapersDB.getPaperById(paperId);
+  try {
+    const paper: ResearchPaper = await researchPapersDB.getPaperById(paperId);
+    
+    if (!paper) {
+      // If paper is not found, return a specific value or error message
+      return NextResponse.json({ message: "Paper not found" });
+    }
 
-  // Send the response
-  return NextResponse.json(paper);
+    // Send the response
+    return NextResponse.json(paper);
+  } catch (error) {
+    console.error("Error fetching paper:", error);
+    return new Response('Internal server error', { status: 500 });
+  }
 }

@@ -19,6 +19,7 @@ export class ResearchPapersDB {
   }
 
   async insertPaper(paper: ResearchPaper) {
+    console.log("insertPaper: ", paper)
     await this.client.db(this.db).collection(this.collection).insertOne(paper);
     console.log("Paper inserted successfully!");
   }

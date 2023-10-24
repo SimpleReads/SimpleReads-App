@@ -45,6 +45,14 @@ const main = async () => {
             authors: ["Alice", "Bob"],
             sections: [
                 {
+                    name: "Preface",
+                    text: "This is the preface for paper 2..."
+                },
+                {
+                    name: "Abstract",
+                    text: "This is the abstract for paper 2..."
+                },
+                {
                     name: "Introduction",
                     text: "This is the introduction for paper 2..."
                 },
@@ -55,6 +63,10 @@ const main = async () => {
                 {
                     name: "Results",
                     text: "These are the results for paper 2..."
+                },
+                {
+                    name: "Discussion",
+                    text: "These are the discussion points for paper 2..."
                 },
                 {
                     name: "Conclusion",
