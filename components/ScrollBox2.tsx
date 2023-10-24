@@ -70,26 +70,49 @@ export default function ReadPage({
     });
   };
 
-  // Function which simplifies the given text to a reduced form.
-  const simplify = async (oldtext) => {
-    const updatedText = await simplifyPDF(oldtext);
-
-    newText(updatedText);
+  const handleSimplification = async (oldtext, simplifyFunction, paperId) => {
+    try {
+      const existingPaper = await getResearchPaper(paperId);
+  
+      if (existingPaper && existingPaper.message !== "Paper not found") {
+        console.log("Paper already exists in the database", existingPaper);
+        newText(existingPaper.sections.map(section => section.text));
+      } else {
+        const updatedText = await simplifyFunction(oldtext);
+        const sections = headers.map((header, index) => ({ name: header, text: updatedText[index] }));
+  
+        createResearchPaperAndStore(sections, updatedText, paperId)
+          .then(response => {
+            console.log("Paper stored successfully", response);
+            newText(updatedText);
+          })
+          .catch(error => {
+            console.error("Error storing paper", error);
+          });
+      }
+    } catch (error) {
+      console.error("Error fetching or storing paper", error);
+    }
   };
 
-  // Fuction which simplifies the given text using GPT-4.
+  const simplify = async (oldtext) => {
+    console.log("Simplify");
+    const paperId = "000000000000000000000002";
+    handleSimplification(oldtext, simplifyPDF, paperId);
+  };
+  
   const gpt4 = async (oldtext) => {
     console.log("GPT4");
-    const updatedText = await simplifyGPT4(oldtext);
-    newText(updatedText);
+    const paperId = "000000000000000000000003";
+    handleSimplification(oldtext, simplifyGPT4, paperId);
   };
-
-  // Fuction which simplifies the given text using GPT-4.
+  
   const dotpoints = async (oldtext) => {
     console.log("Dotpoints");
-    const updatedText = await simplifyDotPoints(oldtext);
-    newText(updatedText);
+    const paperId = "000000000000000000000001";
+    handleSimplification(oldtext, simplifyDotPoints, paperId);
   };
+  
 
   const reset = async () => {
     const _id = "000000000000000000000000";
