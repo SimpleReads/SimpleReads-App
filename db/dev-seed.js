@@ -15,9 +15,9 @@ const main = async () => {
     // Create two paper objects with sections
     const papersData = [
         {
+            _id: new mongodb.ObjectId("5f9d88a6c3b9b3b3d4c1b0a1"),
             title: "Sample Research Paper 1",
             authors: ["Alice", "Bob"],
-            abstract: "This is an example abstract for paper 1...",
             sections: [
                 {
                     name: "Introduction",
@@ -40,9 +40,9 @@ const main = async () => {
             published_at: new Date("2021-01-01T00:00:00Z")
         },
         {
+            _id: new mongodb.ObjectId("5f9d88a6c3b9b3b3d4c1b0a2"),
             title: "Sample Research Paper 2",
             authors: ["Alice", "Bob"],
-            abstract: "This is an example abstract for paper 2...",
             sections: [
                 {
                     name: "Introduction",
