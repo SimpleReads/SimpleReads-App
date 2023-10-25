@@ -35,6 +35,7 @@ export default function FileDrop({childToParent}) {
   // Function that take file and read content. Updates setInfo with pdf contxt. Set uploadpff to true
   const updateText = async(file) => {
       let info = await readPDF(file)
+
       setInfo(info)
       setUploaded(true)
   }
